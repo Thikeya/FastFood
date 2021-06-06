@@ -47,10 +47,6 @@ public class Atendente {
 		this.senha = senha;
 	}
 
-	public Atendente() {
-		
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,4 +74,8 @@ public class Atendente {
 		return "Atendente [atendente_id=" + atendente_id + ", turno=" + turno + ", status=" + status + "]";
 	}
 	
+
+	public Atendente() {
+		
+	}
 }
