@@ -5,7 +5,7 @@ import java.util.List;
 import model.dao.ProdutoDao;
 import model.entities.Produto;
 
-public class ProdutoDaoJDCBC implements ProdutoDao{
+public class ProdutoDaoJDBC implements ProdutoDao{
 
 	@Override
 	public void insert(Produto obj) {
