@@ -90,11 +90,13 @@ public class Produto {
 		return true;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "Produto [produto_id=" + produto_id + ", nome=" + nome + ", valor=" + valor + ", descricao=" + descricao
-				+ ", dataProducao=" + dataProducao + ", qtdEstoque=" + qtdEstoque + "]";
+				+ ", dataProducao=" + dataProducao + ", qtdEstoque=" + qtdEstoque + ", codigo da categoria=" + categoria.getCategoria_id() + "]";
 	}
+
 	public Produto() {
 		
 	}

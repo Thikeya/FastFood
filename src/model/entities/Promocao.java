@@ -6,7 +6,7 @@ public class Promocao {
 	private int promocao_id;
 	private String tipo;
 	private Date duracao;
-	private String descriacao;
+	private String descricao;
 	private double preco;
 	private Produto produto;
 	
@@ -42,12 +42,12 @@ public class Promocao {
 		this.duracao = duracao;
 	}
 	
-	public String getDescriacao() {
-		return descriacao;
+	public String getDescricao() {
+		return descricao;
 	}
 	
-	public void setDescriacao(String descriacao) {
-		this.descriacao = descriacao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
 	public double getPreco() {
@@ -80,12 +80,13 @@ public class Promocao {
 		return true;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "Promocao [promocao_id=" + promocao_id + ", tipo=" + tipo + ", duracao=" + duracao + ", descriacao="
-				+ descriacao + ", preco=" + preco + "]";
+		return "Promocao [promocao_id=" + promocao_id + ", tipo=" + tipo + ", validade=" + duracao + ", descricao="
+				+ descricao + ", preco=" + preco + ", codigo do produto=" + produto.getProduto_id() + "]";
 	}
-	
+
 	public Promocao() {
 		
 	}

@@ -32,16 +32,16 @@ public class DaoFactory {
 		return new PagamentoDaoJDBC(DB.getConnection());
 	}
 	public static PedidoDao createPedidoDao() {
-		return new PedidoDaoJDBC();
+		return new PedidoDaoJDBC(DB.getConnection());
 	}
 	public static ProdutoDao createProdutoDao() {
-		return new ProdutoDaoJDBC();
+		return new ProdutoDaoJDBC(DB.getConnection());
 	}
 	public static PromocaoDao createPromocaoDao() {
-		return new PromocaoDaoJDBC();
+		return new PromocaoDaoJDBC(DB.getConnection());
 	}
 	
 	public static Pedido_ItemDao createPedido_ItemDao() {
-		return new Pedido_ItemDaoJDBC();
+		return new Pedido_ItemDaoJDBC(DB.getConnection());
 	}
 }

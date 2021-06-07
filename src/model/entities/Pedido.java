@@ -1,14 +1,14 @@
 package model.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Pedido {
 	private int pedido_id;
-	private  Date horarioPedido;
+	private Timestamp horarioPedido;
 	private String descricao;
 	private String statusPedido;
 	private Atendente atendente;
-	private Item_Pedido item_pedido;
 	
 	public Atendente getAtendente() {
 		return atendente;
@@ -16,14 +16,6 @@ public class Pedido {
 
 	public void setAtendente(Atendente atendente) {
 		this.atendente = atendente;
-	}
-
-	public Item_Pedido getItem_pedido() {
-		return item_pedido;
-	}
-
-	public void setItem_pedido(Item_Pedido item_pedido) {
-		this.item_pedido = item_pedido;
 	}
 
 	public int getPedido_id() {
@@ -34,14 +26,14 @@ public class Pedido {
 		this.pedido_id = pedido_id;
 	}
 	
-	public Date getHorarioPedido() {
+	public Timestamp getHorarioPedido() {
 		return horarioPedido;
 	}
-	
-	public void setHorarioPedido(Date horarioPedido) {
+
+	public void setHorarioPedido(Timestamp horarioPedido) {
 		this.horarioPedido = horarioPedido;
 	}
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -80,10 +72,12 @@ public class Pedido {
 		return true;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "Pedido [pedido_id=" + pedido_id + ", horarioPedido=" + horarioPedido + ", statusPedido=" + statusPedido
-				+ "]";
+		return "Pedido [pedido id=" + pedido_id + ", horario do Pedido=" + horarioPedido + ", descricao=" + descricao
+				+ ", status do Pedido=" + statusPedido + ", codigo do atendente=" + atendente.getAtendente_id() + "]";
 	}
 
 	public Pedido() {
