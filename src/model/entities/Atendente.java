@@ -6,7 +6,16 @@ public class Atendente {
 	private String status;
 	private String login;
 	private String senha;
+	private String nome;
 	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public int getAtendente_id() {
 		return atendente_id;
 	}
@@ -71,9 +80,9 @@ public class Atendente {
 
 	@Override
 	public String toString() {
-		return "Atendente [atendente_id=" + atendente_id + ", turno=" + turno + ", status=" + status + "]";
+		return "Atendente [atendente_id=" + atendente_id + ", nome=" + nome + ", turno=" + turno + ", status=" + status
+				+ "]";
 	}
-	
 
 	public Atendente() {
 		
