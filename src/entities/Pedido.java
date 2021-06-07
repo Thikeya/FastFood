@@ -3,64 +3,72 @@ package entities;
 import java.sql.Date;
 
 public class Pedido {
-	private int codPedido;
+	private int pedido_id;
 	private  Date horarioPedido;
 	private String descricao;
 	private String statusPedido;
 	
-	public Pedido() {
+	public int getPedido_id() {
+		return pedido_id;
 	}
 	
-	public Pedido buscarPedido(int codPedido) {
-		return null;
-		
+	public void setPedido_id(int pedido_id) {
+		this.pedido_id = pedido_id;
 	}
 	
-	public void emitirComprovantePedido(Pagamento pagamentoAutorizado) {
-		
-	}
-
-	public int getCodPedido() {
-		return codPedido;
-	}
-
-	public void setCodPedido(int codPedido) {
-		//implementar regra
-		this.codPedido = codPedido;
-	}
-
 	public Date getHorarioPedido() {
-		
 		return horarioPedido;
 	}
-
+	
 	public void setHorarioPedido(Date horarioPedido) {
-		//implementar regra
 		this.horarioPedido = horarioPedido;
 	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}
-
+	
 	public void setDescricao(String descricao) {
-		//implementar regra
 		this.descricao = descricao;
 	}
-
-
-
+	
 	public String getStatusPedido() {
 		return statusPedido;
 	}
-
-
-
+	
 	public void setStatusPedido(String statusPedido) {
-		//implementar regra
 		this.statusPedido = statusPedido;
 	}
-	
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + pedido_id;
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido other = (Pedido) obj;
+		if (pedido_id != other.pedido_id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido [pedido_id=" + pedido_id + ", horarioPedido=" + horarioPedido + ", statusPedido=" + statusPedido
+				+ "]";
+	}
+
+	public Pedido() {
+		
+	}
 }

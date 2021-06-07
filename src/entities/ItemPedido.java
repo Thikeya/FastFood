@@ -19,22 +19,4 @@ public class ItemPedido {
 	public void setQtdeIngredientes(int qtdeIngredientes) {
 		this.qtdeIngredientes = qtdeIngredientes;
 	}
-
-	public ItemPedido() {
-	}
-	
-	public void adicionarProduto(int idProduto) {
-		
-	}
-	
-	public void removerProduto(int idProduto) {
-		
-	}
-	
-	public void adicionaringPedido(int codIng) {
-		
-	}
-	public void removeringPedido(int codIng) {
-		
-	}
 }

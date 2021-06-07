@@ -1,100 +1,93 @@
 package entities;
 
 import java.sql.Date;
-//implementar
-//implementar regras nos setters and getters
+
 public class Produto {
 	
-	private int codigo;
-	private String name;
+	private int produto_id;
+	private String nome;
 	private double valor;
 	private String descricao;
 	private Date dataProducao;
-	private int qtdeEstoque;
+	private int qtdEstoque;
 	
-	
-	public void adicionarProd(int coding) {
-		
-	}
-	
-	public void removeringProd(int coding) {
-		
-	}
-	public Promocao adicionarPromo(String duracao, Date duaracao, String descricao, double preco) {
-		return null;
-		
+	public int getProduto_id() {
+		return produto_id;
 	}
 	
-	public void removerPromo(int idPromo) {
-		
+	public void setProduto_id(int produto_id) {
+		this.produto_id = produto_id;
 	}
 	
-	public void adicionarPrduto() {
-		
+	public String getNome() {
+		return nome;
 	}
 	
-	public void removeProduto() {
-		
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
-	public void buscarProduto() {
-		
-	}
-	
-	public void buscarPromocao() {
-		
-	}
-	
-	public Produto[] buscarProdutos(int idCategoria) {
-		return null;
-		
-	}
-
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public double getValor() {
 		return valor;
 	}
-
+	
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}
-
+	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
+	
 	public Date getDataProducao() {
 		return dataProducao;
 	}
-
+	
 	public void setDataProducao(Date dataProducao) {
 		this.dataProducao = dataProducao;
 	}
-
-	public int getQtdeEstoque() {
-		return qtdeEstoque;
+	
+	public int getQtdEstoque() {
+		return qtdEstoque;
 	}
-
-	public void setQtdeEstoque(int qtdeEstoque) {
-		this.qtdeEstoque = qtdeEstoque;
+	
+	public void setQtdEstoque(int qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + produto_id;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (produto_id != other.produto_id)
+			return false;
+		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Produto [produto_id=" + produto_id + ", nome=" + nome + ", valor=" + valor + ", descricao=" + descricao
+				+ ", dataProducao=" + dataProducao + ", qtdEstoque=" + qtdEstoque + "]";
+	}
+	public Produto() {
+		
+	}
+	
 }
