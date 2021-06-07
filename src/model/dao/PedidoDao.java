@@ -1,5 +1,13 @@
 package model.dao;
 
-public interface PedidoDao {
+import java.util.List;
 
+import model.entities.Pedido;
+
+public interface PedidoDao {
+	void insert(Pedido obj);
+	void update(Pedido obj);
+	void deleteById(Integer id);
+	Pedido findById(Integer id);
+	List<Pedido> findAll();
 }
