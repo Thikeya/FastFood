@@ -37,6 +37,7 @@ public class Program {
 		ProdutoDao produtoDao = DaoFactory.createProdutoDao();
 		PromocaoDao promocaoDao = DaoFactory.createPromocaoDao();
 		
+		/*
 		System.out.println("\n=== Listando todos os atendentes =====");
 		List<Atendente> listAtendente = atendenteDao.findAll();
 		for (Atendente obj : listAtendente) {
@@ -96,6 +97,12 @@ public class Program {
 		for (Promocao obj : listPromocao) {
 			System.out.println(obj);
 		}
+		
+		System.out.println("\n=== TEST 4: atendente insert =====");
+		Atendente novoAtendente = new Atendente(null, "ativo", "vespertino", "eric123", "eric", "Eric");
+		atendenteDao.insert(novoAtendente);
+		*/
+		
 		
 	}
 }

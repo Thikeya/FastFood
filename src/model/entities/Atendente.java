@@ -1,7 +1,7 @@
 package model.entities;
 
 public class Atendente {
-	private int atendente_id;
+	private Integer atendente_id;
 	private String turno;
 	private String status;
 	private String login;
@@ -11,6 +11,16 @@ public class Atendente {
 	public String getNome() {
 		return nome;
 	}
+	
+	public Atendente(Integer atendente_id, String turno, String status, String login, String senha, String nome) {
+		this.atendente_id = atendente_id;
+		this.turno = turno;
+		this.status = status;
+		this.login = login;
+		this.senha = senha;
+		this.nome = nome;
+	}
+
 
 	public void setNome(String nome) {
 		this.nome = nome;
