@@ -1,4 +1,4 @@
-package entities;
+package model.entities;
 
 import java.sql.Date;
 
@@ -10,7 +10,16 @@ public class Produto {
 	private String descricao;
 	private Date dataProducao;
 	private int qtdEstoque;
+	private Categoria categoria;
 	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	public int getProduto_id() {
 		return produto_id;
 	}

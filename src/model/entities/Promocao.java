@@ -1,4 +1,4 @@
-package entities;
+package model.entities;
 
 import java.sql.Date;
 
@@ -8,7 +8,16 @@ public class Promocao {
 	private Date duracao;
 	private String descriacao;
 	private double preco;
+	private Produto produto;
 	
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
 	public int getPromocao_id() {
 		return promocao_id;
 	}

@@ -1,4 +1,4 @@
-package entities;
+package model.entities;
 
 import java.sql.Date;
 
@@ -7,7 +7,25 @@ public class Pedido {
 	private  Date horarioPedido;
 	private String descricao;
 	private String statusPedido;
+	private Atendente atendente;
+	private Item_Pedido item_pedido;
 	
+	public Atendente getAtendente() {
+		return atendente;
+	}
+
+	public void setAtendente(Atendente atendente) {
+		this.atendente = atendente;
+	}
+
+	public Item_Pedido getItem_pedido() {
+		return item_pedido;
+	}
+
+	public void setItem_pedido(Item_Pedido item_pedido) {
+		this.item_pedido = item_pedido;
+	}
+
 	public int getPedido_id() {
 		return pedido_id;
 	}
