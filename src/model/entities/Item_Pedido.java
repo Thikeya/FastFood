@@ -4,6 +4,7 @@ public class Item_Pedido {
 	private int item_pedido_id;
 	private int qtdeProdutos;
 	private int qtdeIngredientes;
+	
 	private Produto produto;
 	private Ingrediente ingrediente;
 	

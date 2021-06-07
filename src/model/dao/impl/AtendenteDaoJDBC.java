@@ -72,7 +72,34 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 	@Override
 	public Atendente findById(Integer id) {
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT atendente_id, nome, status, turno FROM atendente WHERE atendente_id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Atendente atend = instanciarAtendente(rs);
+				return atend;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	private Atendente instanciarAtendente(ResultSet rs) throws SQLException {
+		Atendente atend = new Atendente();
+		atend.setAtendente_id(rs.getInt("atendente_id"));
+		atend.setNome(rs.getString("nome"));
+		atend.setStatus(rs.getString("status"));
+		atend.setTurno(rs.getString("turno"));
+		return atend;
 	}
 
 	@Override

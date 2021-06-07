@@ -10,6 +10,7 @@ public class Produto {
 	private String descricao;
 	private Date dataProducao;
 	private int qtdEstoque;
+	
 	private Categoria categoria;
 	
 	public Categoria getCategoria() {

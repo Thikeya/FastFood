@@ -12,6 +12,7 @@ import db.DB;
 import db.DbException;
 import model.dao.CategoriaDao;
 import model.entities.Categoria;
+import model.entities.Categoria;
 
 public class CategoriaDaoJDBC implements CategoriaDao{
 
@@ -72,8 +73,33 @@ public class CategoriaDaoJDBC implements CategoriaDao{
 
 	@Override
 	public Categoria findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT categoria_id, nome, descricao FROM categoria WHERE categoria_id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Categoria atend = instanciarCategoria(rs);
+				return atend;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	private Categoria instanciarCategoria(ResultSet rs) throws SQLException {
+		Categoria atend = new Categoria();
+		atend.setCategoria_id(rs.getInt("categoria_id"));
+		atend.setNome(rs.getString("nome"));
+		atend.setDescricao(rs.getString("descricao"));
+		return atend;
 	}
 
 	@Override

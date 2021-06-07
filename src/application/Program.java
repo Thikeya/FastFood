@@ -101,10 +101,13 @@ public class Program {
 		System.out.println("\n=== TEST 4: atendente insert =====");
 		Atendente novoAtendente = new Atendente(null, "ativo", "vespertino", "eric123", "eric", "Eric");
 		atendenteDao.insert(novoAtendente);
-		*/
+		
 		System.out.println("\n=== TEST 4: Categoria insert =====");
 		Categoria novoCategoria = new Categoria(null, "doces", "agridoce");
 		categoriaDao.insert(novoCategoria);
+		*/
+		System.out.println(atendenteDao.findById(1));
+		System.out.println(categoriaDao.findById(1));
 		
 	}
 }

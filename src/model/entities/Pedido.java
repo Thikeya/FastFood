@@ -1,6 +1,5 @@
 package model.entities;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Pedido {
@@ -8,6 +7,7 @@ public class Pedido {
 	private Timestamp horarioPedido;
 	private String descricao;
 	private String statusPedido;
+	
 	private Atendente atendente;
 	
 	public Atendente getAtendente() {

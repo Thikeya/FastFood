@@ -2,6 +2,7 @@ package model.entities;
 
 public class Ing_Prod {
 	private int qtdeIng;
+	
 	private Produto produto;
 	private Ingrediente ingrediente;
 	

@@ -4,6 +4,7 @@ public class Pagamento {
 	private int pagamento_id;
 	private String pagamentoAutorizado;
 	private String tipoDePag;
+	
 	private Pedido pedido;
 	
 	public Pagamento() {

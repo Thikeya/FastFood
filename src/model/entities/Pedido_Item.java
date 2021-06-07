@@ -3,6 +3,7 @@ package model.entities;
 public class Pedido_Item {
 	private Pedido pedido;
 	private Item_Pedido item_pedido;
+	
 	public Pedido getPedido() {
 		return pedido;
 	}

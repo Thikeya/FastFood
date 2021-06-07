@@ -8,6 +8,7 @@ public class Promocao {
 	private Date duracao;
 	private String descricao;
 	private double preco;
+	
 	private Produto produto;
 	
 	public Produto getProduto() {
