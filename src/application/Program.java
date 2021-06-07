@@ -102,7 +102,9 @@ public class Program {
 		Atendente novoAtendente = new Atendente(null, "ativo", "vespertino", "eric123", "eric", "Eric");
 		atendenteDao.insert(novoAtendente);
 		*/
-		
+		System.out.println("\n=== TEST 4: Categoria insert =====");
+		Categoria novoCategoria = new Categoria(null, "doces", "agridoce");
+		categoriaDao.insert(novoCategoria);
 		
 	}
 }

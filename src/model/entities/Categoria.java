@@ -1,9 +1,15 @@
 package model.entities;
 
 public class Categoria {
-	private int categoria_id;
+	private Integer categoria_id;
 	private String nome;
 	private String descricao;
+	
+	public Categoria(Integer categoria_id, String nome, String descricao) {
+		this.categoria_id = categoria_id;
+		this.nome = nome;
+		this.descricao = descricao;
+	}
 	
 	public int getCategoria_id() {
 		return categoria_id;
