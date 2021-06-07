@@ -13,11 +13,12 @@ import model.dao.PedidoDao;
 import model.dao.Pedido_ItemDao;
 import model.dao.ProdutoDao;
 import model.dao.PromocaoDao;
-import model.dao.impl.Ing_ProdDaoJDBC;
 import model.entities.Atendente;
 import model.entities.Categoria;
 import model.entities.Ing_Prod;
 import model.entities.Ingrediente;
+import model.entities.Item_Pedido;
+import model.entities.Pagamento;
 
 public class Program {
 	public static void main(String args[]) {
@@ -44,7 +45,7 @@ public class Program {
 			System.out.println(obj);
 		}
 		
-		System.out.println("\n=== Listando todos as categorias =====");
+		System.out.println("\n=== Listando todos as ingrediente / produto =====");
 		List<Ing_Prod> listIng_Prod = ing_prodDao.findAll();
 		for (Ing_Prod obj : listIng_Prod) {
 			System.out.println(obj);
@@ -55,5 +56,18 @@ public class Program {
 		for (Ingrediente obj : listIngrediente) {
 			System.out.println(obj);
 		}
+		
+		System.out.println("\n=== Listando todos os item / pedido =====");
+		List<Item_Pedido> listItem_Pedido = item_pedidoDao.findAll();
+		for (Item_Pedido obj : listItem_Pedido) {
+			System.out.println(obj);
+		}
+		
+		System.out.println("\n=== Listando todos os pagamentos =====");
+		List<Pagamento> listPagamento = pagamentoDao.findAll();
+		for (Pagamento obj : listPagamento) {
+			System.out.println(obj);
+		}
+		
 	}
 }

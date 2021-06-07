@@ -26,10 +26,10 @@ public class DaoFactory {
 		return new IngredienteDaoJDBC(DB.getConnection());
 	}
 	public static Item_PedidoDao createItem_PedidoDao() {
-		return new Item_PedidoDaoJDBC();
+		return new Item_PedidoDaoJDBC(DB.getConnection());
 	}
 	public static PagamentoDao createPagamentoDao() {
-		return new PagamentoDaoJDBC();
+		return new PagamentoDaoJDBC(DB.getConnection());
 	}
 	public static PedidoDao createPedidoDao() {
 		return new PedidoDaoJDBC();
