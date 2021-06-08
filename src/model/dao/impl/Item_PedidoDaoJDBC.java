@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,41 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 	
 	@Override
 	public void insert(Item_Pedido obj) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"INSERT INTO item_pedido "
+					+ "(produto_id, qtd_produto, ingrediente_id, qtd_ingrediente) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setInt(1, obj.getProduto().getProduto_id());
+			st.setInt(2, obj.getQtdeProdutos());
+			st.setInt(3, obj.getIngrediente().getIngrediente_id());
+			st.setInt(4, obj.getQtdeIngredientes());
+			
+			int rowsAffected = st.executeUpdate();
+			
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setItem_pedido_id(id);
+					System.out.println("O código do seus itens é nº: " + id);
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Unexpected error! No rows affected!");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

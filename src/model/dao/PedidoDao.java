@@ -1,7 +1,9 @@
 package model.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+import model.entities.Atendente;
 import model.entities.Pedido;
 
 public interface PedidoDao {

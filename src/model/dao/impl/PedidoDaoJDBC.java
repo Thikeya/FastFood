@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,43 @@ public class PedidoDaoJDBC implements PedidoDao {
 	
 	@Override
 	public void insert(Pedido obj) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"INSERT INTO pedido "
+					+ "(hora_pedido, descricao, status_pedido, atendente_id) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, obj.getHorarioPedido());
+			st.setString(2, obj.getDescricao());
+			st.setString(3, obj.getStatusPedido());
+			st.setInt(4, obj.getAtendente().getAtendente_id());
+			
+			int rowsAffected = st.executeUpdate();
+			
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setPedido_id(id);
+					System.out.println("Pedido Criado nº:" + id);
+					System.out.println("Adicionar ");
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Erro, nenhuma linha afetada");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
@@ -57,7 +93,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 				Pedido pedido = new Pedido();
 				Atendente atendente = new Atendente();
 				pedido.setPedido_id(rs.getInt("pedido_id"));
-				pedido.setHorarioPedido(rs.getTimestamp("hora_pedido"));
+				pedido.setHorarioPedido(rs.getString("hora_pedido"));
 				pedido.setDescricao(rs.getString("descricao"));
 				pedido.setStatusPedido(rs.getString("status_pedido"));
 				atendente.setAtendente_id(rs.getInt("atendente_id"));

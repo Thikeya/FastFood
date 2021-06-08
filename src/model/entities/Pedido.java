@@ -1,10 +1,11 @@
 package model.entities;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Pedido {
 	private int pedido_id;
-	private Timestamp horarioPedido;
+	private String horarioPedido;
 	private String descricao;
 	private String statusPedido;
 	
@@ -26,11 +27,11 @@ public class Pedido {
 		this.pedido_id = pedido_id;
 	}
 	
-	public Timestamp getHorarioPedido() {
+	public String getHorarioPedido() {
 		return horarioPedido;
 	}
 
-	public void setHorarioPedido(Timestamp horarioPedido) {
+	public void setHorarioPedido(String horarioPedido) {
 		this.horarioPedido = horarioPedido;
 	}
 

@@ -79,7 +79,11 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Atendente atend = instanciarAtendente(rs);
+				Atendente atend = new Atendente();
+				atend.setAtendente_id(rs.getInt("atendente_id"));
+				atend.setNome(rs.getString("nome"));
+				atend.setStatus(rs.getString("status"));
+				atend.setTurno(rs.getString("turno"));
 				return atend;
 			}
 			return null;
@@ -91,15 +95,6 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
-	}
-
-	private Atendente instanciarAtendente(ResultSet rs) throws SQLException {
-		Atendente atend = new Atendente();
-		atend.setAtendente_id(rs.getInt("atendente_id"));
-		atend.setNome(rs.getString("nome"));
-		atend.setStatus(rs.getString("status"));
-		atend.setTurno(rs.getString("turno"));
-		return atend;
 	}
 
 	@Override
@@ -119,6 +114,33 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 				list.add(atendente);
 			}
 			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	@Override
+	public boolean findLogin(String login, String senha) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT atendente_id, login, senha FROM atendente WHERE login = ? AND senha = ?");
+			st.setString(1, login);
+			st.setString(2, senha);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Atendente atend = new Atendente();
+				atend.setAtendente_id(rs.getInt("atendente_id"));
+				atend.setLogin(rs.getString("login"));
+				atend.setSenha(rs.getString("senha"));
+				return true;
+			}
+			return false;
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());

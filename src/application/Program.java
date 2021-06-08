@@ -1,6 +1,9 @@
 package application;
 
-import java.util.List;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Scanner;
 
 import model.dao.AtendenteDao;
 import model.dao.CategoriaDao;
@@ -14,18 +17,13 @@ import model.dao.Pedido_ItemDao;
 import model.dao.ProdutoDao;
 import model.dao.PromocaoDao;
 import model.entities.Atendente;
-import model.entities.Categoria;
-import model.entities.Ing_Prod;
-import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
-import model.entities.Pagamento;
 import model.entities.Pedido;
-import model.entities.Pedido_Item;
-import model.entities.Produto;
-import model.entities.Promocao;
 
 public class Program {
 	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		String timeStamp = new SimpleDateFormat("yyyy/MM/dd - HH:mm:ss").format(Calendar.getInstance().getTime());
 		AtendenteDao atendenteDao = DaoFactory.createAtendenteDao();
 		CategoriaDao categoriaDao = DaoFactory.createCategoriaDao();
 		Ing_ProdDao ing_prodDao = DaoFactory.createIng_ProdDao();
@@ -37,77 +35,140 @@ public class Program {
 		ProdutoDao produtoDao = DaoFactory.createProdutoDao();
 		PromocaoDao promocaoDao = DaoFactory.createPromocaoDao();
 		
-		/*
-		System.out.println("\n=== Listando todos os atendentes =====");
-		List<Atendente> listAtendente = atendenteDao.findAll();
-		for (Atendente obj : listAtendente) {
-			System.out.println(obj);
+		int menu = 1;
+		
+		while(menu == 1) {
+			System.out.println("Deseja realizar um pedido?");
+			System.out.println("1- Sim // 2- Não");
+			String es1 = sc.nextLine();
+			if(es1.equals("1")) {
+				System.out.println("informe seu nome: ");
+				String nomeCliente = sc.nextLine();
+				Pedido pedido = new Pedido();
+				pedido.setAtendente(atendenteDao.findById(1));
+				pedido.setDescricao(nomeCliente);
+				pedido.setHorarioPedido(timeStamp);
+				pedido.setStatusPedido("a espera");
+				pedidoDao.insert(pedido);
+				
+				System.out.println("1- adicionar produtos");
+				System.out.println("2- adicionar ingredientes");
+				int pedidomenu = sc.nextInt();sc.nextLine();
+				if(pedidomenu == 1) {
+					System.out.println(produtoDao.findAll());
+					int continuar = 1;
+					while(continuar==1) {
+						System.out.println("escolha um produto:");
+						int escolhaProduto = sc.nextInt();sc.nextLine();
+						System.out.println("digite a quantidade:");
+						int quantidadeProduto = sc.nextInt();sc.nextLine();
+						Item_Pedido item_pedido = new Item_Pedido();
+						item_pedido.setQtdeProdutos(quantidadeProduto);
+						item_pedido.setProduto(produtoDao.findById(escolhaProduto));
+						item_pedido.setIngrediente(null);
+						item_pedido.setQtdeIngredientes(0);
+						System.out.println("adicionar mais algum produto?");
+						System.out.println("1-Sim // 2- Não");
+						continuar=sc.nextInt();sc.nextLine();
+					}
+					continuar = 1;
+					while(continuar == 1) {
+						System.out.println("adicionar seus produtos no seu pedido: ");
+						System.out.println("codigo do seu pedido: ");
+						int codigoPedido = sc.nextInt();sc.nextLine();
+						System.out.println("codigo dos seus items");
+						int codigoItems = sc.nextInt();sc.nextLine();
+						System.out.println("Adicionar mais items no pedido?");
+						System.out.println("1-Sim // 2- Não");
+						continuar=sc.nextInt();sc.nextLine();
+					}
+				}
+				if(pedidomenu == 2) {
+					System.out.println(ingredienteDao.findAll());
+					int continuar = 1;
+					while(continuar==1) {
+						System.out.println("escolha um ingrediente:");
+						int escolhaIngrediente = sc.nextInt();sc.nextLine();
+						System.out.println("digite um ingrediente:");
+						int quantidadeIngrediente = sc.nextInt();sc.nextLine();
+						Item_Pedido item_pedido = new Item_Pedido();
+						item_pedido.setQtdeProdutos(0);
+						item_pedido.setProduto(null);
+						item_pedido.setIngrediente(ingredienteDao.findById(escolhaIngrediente));
+						item_pedido.setQtdeIngredientes(quantidadeIngrediente);
+						System.out.println("adicionar mais algum produto?");
+						System.out.println("1-Sim // 2- Não");
+						continuar=sc.nextInt();sc.nextLine();
+					}
+					continuar = 1;
+					while(continuar == 1) {
+						System.out.println("adicionar seus ingrediente no seu pedido: ");
+						System.out.println("codigo do seu pedido: ");
+						int codigoPedido = sc.nextInt();sc.nextLine();
+						System.out.println("codigo dos seus items");
+						int codigoItems = sc.nextInt();sc.nextLine();
+						System.out.println("Adicionar mais items no pedido?");
+						System.out.println("1-Sim // 2- Não");
+						continuar=sc.nextInt();sc.nextLine();
+					}
+				}
+			}
+			else if(es1.equals("2")){
+				System.out.println("É uma pena, quem sabe em outro momento...");
+				System.out.println("Encerrando sistema...");
+			}
+			else if(es1.equals("funcionario")) {
+				System.out.println("=== Login === ");
+				System.out.println("Insira seu login: ");
+				String login = sc.nextLine();
+				System.out.println("Insira sua senha: ");
+				String senha = sc.nextLine();
+				Atendente atendente = new Atendente();
+				if(atendente.verificarAdmin(login, senha)) {
+					atendente.listarAdminOpcoes();
+				}
+				else if(atendenteDao.findLogin(login, senha)) {
+					System.out.println("login efetuado com sucesso");
+					int atendenteEscolha = atendente.listarAtendenteOpcoes();
+					switch(atendenteEscolha) {
+						case 1:
+							pedidoDao.findAll();
+							int escolherPedido = sc.nextInt();sc.nextLine();
+							if(pedidoDao.findById(escolherPedido).getAtendente().getAtendente_id() == 1) {
+								pedidoDao.update(pedidoDao.findById(escolherPedido));
+							}
+							else {
+								System.out.println("Esse pedido já possui uma atendente cadastrado");
+							}
+							break;
+						case 2:
+							pedidoDao.findAll();
+							Pedido pedido = new Pedido();
+							escolherPedido = sc.nextInt();sc.nextLine();
+							pedido = pedidoDao.findById(escolherPedido);
+							if(!pedido.getStatusPedido().equals("finalizado")) {
+								System.out.println("informe o novo status:");
+								String novoStatus = sc.nextLine();
+								pedido.setStatusPedido(novoStatus);
+								pedidoDao.update(pedido);
+							}
+							break;
+						case 3:
+							break;
+						default:
+							System.out.println("escolha invalida");
+							System.out.println("sistema finalizado...");
+							break;
+					}
+				}
+				else {
+					System.out.println("login não efetuado");
+					System.out.println("Encerrando sistema...");
+					break;
+					}
+			}else {
+				System.out.println("Opcao invalida");
+			}
 		}
-		
-		System.out.println("\n=== Listando todos as categorias =====");
-		List<Categoria> listCategoria = categoriaDao.findAll();
-		for (Categoria obj : listCategoria) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos as ingrediente / produto =====");
-		List<Ing_Prod> listIng_Prod = ing_prodDao.findAll();
-		for (Ing_Prod obj : listIng_Prod) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos os ingredientes =====");
-		List<Ingrediente> listIngrediente = ingredienteDao.findAll();
-		for (Ingrediente obj : listIngrediente) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos os item / pedido =====");
-		List<Item_Pedido> listItem_Pedido = item_pedidoDao.findAll();
-		for (Item_Pedido obj : listItem_Pedido) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos os pagamentos =====");
-		List<Pagamento> listPagamento = pagamentoDao.findAll();
-		for (Pagamento obj : listPagamento) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos os pedido / item_pedido =====");
-		List<Pedido_Item> listPedido_Item = pedido_itemDao.findAll();
-		for (Pedido_Item obj : listPedido_Item) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos os pedidos =====");
-		List<Pedido> listPedido = pedidoDao.findAll();
-		for (Pedido obj : listPedido) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos os produtos =====");
-		List<Produto> listProduto = produtoDao.findAll();
-		for (Produto obj : listProduto) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== Listando todos os promocao =====");
-		List<Promocao> listPromocao = promocaoDao.findAll();
-		for (Promocao obj : listPromocao) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== TEST 4: atendente insert =====");
-		Atendente novoAtendente = new Atendente(null, "ativo", "vespertino", "eric123", "eric", "Eric");
-		atendenteDao.insert(novoAtendente);
-		
-		System.out.println("\n=== TEST 4: Categoria insert =====");
-		Categoria novoCategoria = new Categoria(null, "doces", "agridoce");
-		categoriaDao.insert(novoCategoria);
-		*/
-		System.out.println(atendenteDao.findById(1));
-		System.out.println(categoriaDao.findById(1));
-		
 	}
 }

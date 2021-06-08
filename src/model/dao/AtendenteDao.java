@@ -10,4 +10,5 @@ public interface AtendenteDao {
 	void deleteById(Integer id);
 	Atendente findById(Integer id);
 	List<Atendente> findAll();
+	boolean findLogin(String login, String senha);
 }
