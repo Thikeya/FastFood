@@ -91,9 +91,6 @@ public class PedidoDaoJDBC implements PedidoDao {
 				ped.setDescricao(rs.getString("descricao"));
 				ped.setStatusPedido(rs.getString("status_pedido"));
 				atend.setAtendente_id(rs.getInt("atendente_id"));
-				atend.setNome(rs.getString("nome"));
-				atend.setStatus(rs.getString("status"));
-				atend.setTurno(rs.getString("turno"));
 				ped.setAtendente(atend);
 				return ped;
 			}

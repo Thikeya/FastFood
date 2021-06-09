@@ -37,8 +37,14 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 			
 			st.setInt(1, obj.getQtdeProdutos());
 			st.setInt(2, obj.getQtdeIngredientes());
-			st.setInt(3, obj.getProduto().getProduto_id());
-			st.setInt(4, obj.getIngrediente().getIngrediente_id());
+			if(obj.getIngrediente() == null) {
+				st.setInt(3, obj.getProduto().getProduto_id());
+				st.setInt(4, 1);
+			}else if(obj.getProduto() == null) {
+				st.setInt(3, 1);
+				st.setInt(4, obj.getIngrediente().getIngrediente_id());
+			}
+			
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -129,9 +135,6 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 				it_ped.setItem_pedido_id(rs.getInt("item_pedido_id"));
 				it_ped.setQtdeProdutos(rs.getInt("qtd_produto"));
 				prod.setProduto_id(rs.getInt("produto_id"));
-				prod.setNome("nome");
-				prod.setDataProducao(rs.getDate("data_fabricacao"));
-				prod.setValor(rs.getDouble("valor"));
 				it_ped.setProduto(prod);
 				return it_ped;
 			}
