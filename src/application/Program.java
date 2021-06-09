@@ -49,7 +49,7 @@ public class Program {
 				pedido.setAtendente(atendenteDao.findById(1));
 				pedido.setDescricao(nomeCliente);
 				pedido.setHorarioPedido(timeStamp);
-				pedido.setStatusPedido("a espera");
+				pedido.setStatusPedido("a pagar");
 				int id_pedido = pedidoDao.insert(pedido);
 				int con = 1;
 				while(con == 1) {
@@ -73,10 +73,10 @@ public class Program {
 							
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
 							
-							System.out.println(pedidoDao.findById(id_pedido));
-							System.out.println(item_pedidoDao.findByIngrediente(id_item_pedido));
+							//System.out.println(pedidoDao.findById(id_pedido));
+							//System.out.println(item_pedidoDao.findByIngrediente(id_item_pedido));
 							
-							//pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByProduto(id_item_pedido));
+							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByProduto(id_item_pedido));
 							System.out.println("adicionar mais algum produto?");
 							System.out.println("1-Sim // 2- Não");
 							continuar=sc.nextInt();sc.nextLine();
@@ -98,10 +98,10 @@ public class Program {
 							
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
 							
-							System.out.println(pedidoDao.findById(id_pedido));
-							System.out.println(item_pedidoDao.findByIngrediente(id_item_pedido));
+							//System.out.println(pedidoDao.findById(id_pedido));
+							//System.out.println(item_pedidoDao.findByIngrediente(id_item_pedido));
 							
-							//pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByIngrediente(id_item_pedido));
+							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByIngrediente(id_item_pedido));
 							System.out.println("adicionar mais algum ingrediente?");
 							System.out.println("1-Sim // 2- Não");
 							continuar=sc.nextInt();sc.nextLine();
@@ -116,8 +116,7 @@ public class Program {
 				System.out.println("Numero do pedido: " + ped.getPedido_id());
 				System.out.println("Cliente: " + ped.getDescricao());
 				System.out.println("Horario do pedido: " + ped.getHorarioPedido());
-				System.out.println("Valor a ser pago");
-				pedidoDao.findPrecoById(id_pedido);
+				System.out.println("Valor a ser pago R$:" + pedidoDao.findPrecoById(id_pedido));
 				System.out.println("Escolha o método de pagamento: 1- Cartao de credito // 2-QR Code");
 				
 				int mtdpagamento = sc.nextInt();sc.nextLine();

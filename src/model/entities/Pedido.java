@@ -5,13 +5,13 @@ public class Pedido {
 	private String horarioPedido;
 	private String descricao;
 	private String statusPedido;
-	private int valor;
+	private double valor;
 	
-	public int getValor() {
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(int valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 

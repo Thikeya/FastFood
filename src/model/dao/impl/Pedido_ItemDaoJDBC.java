@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,27 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 	public void insert(Pedido ped, Item_Pedido it_ped) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("INSERT INTO pedido_item (pedido_id, item_pedido_id) VALUES (?, ?)");
+			st = conn.prepareStatement(
+					"INSERT INTO pedido_item "
+					+ "(pedido_id, item_pedido_id) "
+					+ "VALUES "
+					+ "(?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setInt(1, ped.getPedido_id());
 			st.setInt(2, it_ped.getItem_pedido_id());
+			
+			int rowsAffected = st.executeUpdate();
+			
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Unexpected error! No rows affected!");
+			}
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());

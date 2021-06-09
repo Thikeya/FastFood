@@ -137,7 +137,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 	}
 
 	@Override
-	public void findPrecoById(Integer id) {
+	public double findPrecoById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -146,7 +146,8 @@ public class PedidoDaoJDBC implements PedidoDao {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Pedido ped = new Pedido();
-				ped.setValor(rs.getInt("Total"));
+				ped.setValor(rs.getDouble("Total"));
+				return ped.getValor();
 			}
 		}
 		catch (SQLException e) {
@@ -156,6 +157,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+		return 0;
 	}
 
 }
