@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,20 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 	}
 	
 	@Override
-	public void insert(Pedido_Item obj) {
-		// TODO Auto-generated method stub
-		
+	public void insert(Pedido ped, Item_Pedido it_ped) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("INSERT INTO pedido_item (pedido_id, item_pedido_id) VALUES (?, ?)");
+			
+			st.setInt(1, ped.getPedido_id());
+			st.setInt(2, it_ped.getItem_pedido_id());
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

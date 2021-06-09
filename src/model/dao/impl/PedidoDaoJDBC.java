@@ -23,7 +23,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 	}
 	
 	@Override
-	public void insert(Pedido obj) {
+	public int insert(Pedido obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -46,8 +46,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 				if (rs.next()) {
 					int id = rs.getInt(1);
 					obj.setPedido_id(id);
-					System.out.println("Pedido Criado nº:" + id);
-					System.out.println("Adicionar ");
+					return id;
 				}
 				DB.closeResultSet(rs);
 			}
@@ -61,6 +60,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		finally {
 			DB.closeStatement(st);
 		}
+		return 0;
 	}
 
 	@Override
@@ -77,8 +77,35 @@ public class PedidoDaoJDBC implements PedidoDao {
 
 	@Override
 	public Pedido findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT pedido_id, hora_pedido, descricao, status_pedido, atendente_id FROM pedido WHERE pedido_id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Pedido ped = new Pedido();
+				Atendente atend = new Atendente();
+				ped.setPedido_id(rs.getInt("pedido_id"));
+				ped.setHorarioPedido(rs.getString("hora_pedido"));
+				ped.setDescricao(rs.getString("descricao"));
+				ped.setStatusPedido(rs.getString("status_pedido"));
+				atend.setAtendente_id(rs.getInt("atendente_id"));
+				atend.setNome(rs.getString("nome"));
+				atend.setStatus(rs.getString("status"));
+				atend.setTurno(rs.getString("turno"));
+				ped.setAtendente(atend);
+				return ped;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override

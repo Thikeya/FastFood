@@ -13,6 +13,7 @@ import db.DbException;
 import model.dao.Item_PedidoDao;
 import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
+import model.entities.Pedido;
 import model.entities.Produto;
 
 public class Item_PedidoDaoJDBC implements Item_PedidoDao {
@@ -24,7 +25,7 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 	}
 	
 	@Override
-	public void insert(Item_Pedido obj) {
+	public int insert(Item_Pedido obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -46,7 +47,7 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 				if (rs.next()) {
 					int id = rs.getInt(1);
 					obj.setItem_pedido_id(id);
-					System.out.println("O código do seus itens é nº: " + id);
+					return id;
 				}
 				DB.closeResultSet(rs);
 			}
@@ -60,6 +61,7 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 		finally {
 			DB.closeStatement(st);
 		}
+		return 0;
 	}
 
 	@Override
@@ -110,6 +112,69 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		
+		}
+	}
+
+	@Override
+	public Item_Pedido findByProduto(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT item_pedido_id, produto_id, qtd_produto FROM item_pedido WHERE item_pedido_id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Item_Pedido it_ped = new Item_Pedido();
+				Produto prod = new Produto();
+				it_ped.setItem_pedido_id(rs.getInt("item_pedido_id"));
+				it_ped.setQtdeProdutos(rs.getInt("qtd_produto"));
+				prod.setProduto_id(rs.getInt("produto_id"));
+				prod.setNome("nome");
+				prod.setDataProducao(rs.getDate("data_fabricacao"));
+				prod.setValor(rs.getDouble("valor"));
+				it_ped.setProduto(prod);
+				return it_ped;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	@Override
+	public Item_Pedido findByIngrediente(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT item_pedido_id, ingrediente_id, qtd_ingrediente FROM item_pedido WHERE item_pedido_id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Item_Pedido it_ped = new Item_Pedido();
+				Ingrediente ing = new Ingrediente();
+				it_ped.setItem_pedido_id(rs.getInt("item_pedido_id"));
+				it_ped.setQtdeIngredientes(rs.getInt("qtd_produto"));
+				ing.setIngrediente_id(rs.getInt("ingrediente_id"));
+				ing.setNome("nome");
+				ing.setValidade(rs.getDate("validade"));
+				ing.setValorPorcao(rs.getDouble("valor_porcao"));
+				ing.setUnidadeMedida(rs.getString("unidade_medida"));
+				it_ped.setIngrediente(ing);
+				return it_ped;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
 		}
 	}
 

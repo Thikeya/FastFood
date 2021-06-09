@@ -49,69 +49,63 @@ public class Program {
 				pedido.setDescricao(nomeCliente);
 				pedido.setHorarioPedido(timeStamp);
 				pedido.setStatusPedido("a espera");
-				pedidoDao.insert(pedido);
+				int id_pedido = pedidoDao.insert(pedido);
+				int con = 1;
+				while(con == 1) {
+					System.out.println("1- adicionar produtos");
+					System.out.println("2- adicionar ingredientes");
+					int pedidomenu = sc.nextInt();sc.nextLine();
+					int id_item_pedido = 0;
+					if(pedidomenu == 1) {
+						System.out.println(produtoDao.findAll());
+						int continuar = 1;
+						while(continuar==1) {
+							System.out.println("escolha um produto:");
+							int escolhaProduto = sc.nextInt();sc.nextLine();
+							System.out.println("digite a quantidade:");
+							int quantidadeProduto = sc.nextInt();sc.nextLine();
+							Item_Pedido item_pedido = new Item_Pedido();
+							item_pedido.setQtdeProdutos(quantidadeProduto);
+							item_pedido.setProduto(produtoDao.findById(escolhaProduto));
+							item_pedido.setIngrediente(null);
+							item_pedido.setQtdeIngredientes(0);
+							
+							id_item_pedido = item_pedidoDao.insert(item_pedido);
+							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByProduto(id_item_pedido));
+							System.out.println("adicionar mais algum produto?");
+							System.out.println("1-Sim // 2- Não");
+							continuar=sc.nextInt();sc.nextLine();
+						}
+					}
+					if(pedidomenu == 2) {
+						System.out.println(ingredienteDao.findAll());
+						int continuar = 1;
+						while(continuar==1) {
+							System.out.println("escolha um ingrediente:");
+							int escolhaIngrediente = sc.nextInt();sc.nextLine();
+							System.out.println("digite um ingrediente:");
+							int quantidadeIngrediente = sc.nextInt();sc.nextLine();
+							Item_Pedido item_pedido = new Item_Pedido();
+							item_pedido.setQtdeProdutos(0);
+							item_pedido.setProduto(null);
+							item_pedido.setIngrediente(ingredienteDao.findById(escolhaIngrediente));
+							item_pedido.setQtdeIngredientes(quantidadeIngrediente);
+							
+							id_item_pedido = item_pedidoDao.insert(item_pedido);
+							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByIngrediente(id_item_pedido));
+							System.out.println("adicionar mais algum produto?");
+							System.out.println("1-Sim // 2- Não");
+							continuar=sc.nextInt();sc.nextLine();
+						}
+					}
+					System.out.println("Deseja inserir mais algo?");
+					System.out.println("1- Sim // 2- Nao");
+					con = sc.nextInt(); sc.nextLine();
+				}
+				System.out.println("Finalizando pedido");
 				
-				System.out.println("1- adicionar produtos");
-				System.out.println("2- adicionar ingredientes");
-				int pedidomenu = sc.nextInt();sc.nextLine();
-				if(pedidomenu == 1) {
-					System.out.println(produtoDao.findAll());
-					int continuar = 1;
-					while(continuar==1) {
-						System.out.println("escolha um produto:");
-						int escolhaProduto = sc.nextInt();sc.nextLine();
-						System.out.println("digite a quantidade:");
-						int quantidadeProduto = sc.nextInt();sc.nextLine();
-						Item_Pedido item_pedido = new Item_Pedido();
-						item_pedido.setQtdeProdutos(quantidadeProduto);
-						item_pedido.setProduto(produtoDao.findById(escolhaProduto));
-						item_pedido.setIngrediente(null);
-						item_pedido.setQtdeIngredientes(0);
-						System.out.println("adicionar mais algum produto?");
-						System.out.println("1-Sim // 2- Não");
-						continuar=sc.nextInt();sc.nextLine();
-					}
-					continuar = 1;
-					while(continuar == 1) {
-						System.out.println("adicionar seus produtos no seu pedido: ");
-						System.out.println("codigo do seu pedido: ");
-						int codigoPedido = sc.nextInt();sc.nextLine();
-						System.out.println("codigo dos seus items");
-						int codigoItems = sc.nextInt();sc.nextLine();
-						System.out.println("Adicionar mais items no pedido?");
-						System.out.println("1-Sim // 2- Não");
-						continuar=sc.nextInt();sc.nextLine();
-					}
-				}
-				if(pedidomenu == 2) {
-					System.out.println(ingredienteDao.findAll());
-					int continuar = 1;
-					while(continuar==1) {
-						System.out.println("escolha um ingrediente:");
-						int escolhaIngrediente = sc.nextInt();sc.nextLine();
-						System.out.println("digite um ingrediente:");
-						int quantidadeIngrediente = sc.nextInt();sc.nextLine();
-						Item_Pedido item_pedido = new Item_Pedido();
-						item_pedido.setQtdeProdutos(0);
-						item_pedido.setProduto(null);
-						item_pedido.setIngrediente(ingredienteDao.findById(escolhaIngrediente));
-						item_pedido.setQtdeIngredientes(quantidadeIngrediente);
-						System.out.println("adicionar mais algum produto?");
-						System.out.println("1-Sim // 2- Não");
-						continuar=sc.nextInt();sc.nextLine();
-					}
-					continuar = 1;
-					while(continuar == 1) {
-						System.out.println("adicionar seus ingrediente no seu pedido: ");
-						System.out.println("codigo do seu pedido: ");
-						int codigoPedido = sc.nextInt();sc.nextLine();
-						System.out.println("codigo dos seus items");
-						int codigoItems = sc.nextInt();sc.nextLine();
-						System.out.println("Adicionar mais items no pedido?");
-						System.out.println("1-Sim // 2- Não");
-						continuar=sc.nextInt();sc.nextLine();
-					}
-				}
+				
+				
 			}
 			else if(es1.equals("2")){
 				System.out.println("É uma pena, quem sabe em outro momento...");
