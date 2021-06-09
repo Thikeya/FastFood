@@ -2,7 +2,6 @@ package model.entities;
 
 public class Pagamento {
 	private int pagamento_id;
-	private String pagamentoAutorizado;
 	private String tipoDePag;
 	private String status;
 	
@@ -44,16 +43,6 @@ public class Pagamento {
 		this.tipoDePag = tipoDePag;
 	}
 
-	public String getPagamentoAutorizado() {
-		return pagamentoAutorizado;
-	}
-
-
-	public void setPagamentoAutorizado(String pagamentoAutorizado) {
-		this.pagamentoAutorizado = pagamentoAutorizado;
-	}
-
-
 	public String getTipoDePag() {
 		return tipoDePag;
 	}
@@ -85,8 +74,7 @@ public class Pagamento {
 
 	@Override
 	public String toString() {
-		return "Pagamento [pagamento_id=" + pagamento_id + ", pagamentoAutorizado=" + pagamentoAutorizado
-				+ ", tipoDePag=" + tipoDePag + ", status=" + status + ", numero do pedido=" + pedido.getPedido_id() + "]";
+		return "\nPagamento_id=" + pagamento_id + ", Tipo do pagamento=" + tipoDePag + ", Status=" + status + ", Numero do pedido=" + pedido.getPedido_id();
 	}
 
 

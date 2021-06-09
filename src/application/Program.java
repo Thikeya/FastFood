@@ -70,12 +70,7 @@ public class Program {
 							item_pedido.setProduto(produtoDao.findById(escolhaProduto));
 							item_pedido.setIngrediente(ingredienteDao.findById(1));
 							item_pedido.setQtdeIngredientes(0);
-							
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
-							
-							//System.out.println(pedidoDao.findById(id_pedido));
-							//System.out.println(item_pedidoDao.findByIngrediente(id_item_pedido));
-							
 							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByProduto(id_item_pedido));
 							System.out.println("adicionar mais algum produto?");
 							System.out.println("1-Sim // 2- Não");
@@ -95,12 +90,7 @@ public class Program {
 							item_pedido.setProduto(produtoDao.findById(1));
 							item_pedido.setIngrediente(ingredienteDao.findById(escolhaIngrediente));
 							item_pedido.setQtdeIngredientes(quantidadeIngrediente);
-							
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
-							
-							//System.out.println(pedidoDao.findById(id_pedido));
-							//System.out.println(item_pedidoDao.findByIngrediente(id_item_pedido));
-							
 							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByIngrediente(id_item_pedido));
 							System.out.println("adicionar mais algum ingrediente?");
 							System.out.println("1-Sim // 2- Não");
@@ -109,6 +99,7 @@ public class Program {
 					}
 					System.out.println("Deseja inserir mais algum produto/ingrediente?");
 					System.out.println("1- Sim // 2- Nao");
+					System.out.println("\n");
 					con = sc.nextInt(); sc.nextLine();
 				}
 				System.out.println("Realizar pagamento");
@@ -117,18 +108,35 @@ public class Program {
 				System.out.println("Cliente: " + ped.getDescricao());
 				System.out.println("Horario do pedido: " + ped.getHorarioPedido());
 				System.out.println("Valor a ser pago R$:" + pedidoDao.findPrecoById(id_pedido));
-				System.out.println("Escolha o método de pagamento: 1- Cartao de credito // 2-QR Code");
-				
+				System.out.println("\n");
+				System.out.println("Escolha o método de pagamento:\n1- Cartao de credito // 2-QR Code");
 				int mtdpagamento = sc.nextInt();sc.nextLine();
+				int codigoPagamento = 0;
 				if(mtdpagamento == 1) {
 					Pagamento pag = new Pagamento();
+					pag.setTipoDePag("Cartao de credito");
+					pag.setStatus("Pagamento confirmado");
+					pag.setPedido(pedidoDao.findById(id_pedido));
+					codigoPagamento = pagamentoDao.insert(pag);
+					System.out.println("Numero do seu pedido: "+ id_pedido);
+					System.out.println("Numero do seu pagamento: "+codigoPagamento);
+					System.out.println("\n\n");
+				}else if(mtdpagamento == 2) {
+					Pagamento pag = new Pagamento();
+					pag.setTipoDePag("QR Code");
+					pag.setStatus("Pagamento confirmado");
+					pag.setPedido(pedidoDao.findById(id_pedido));
+					codigoPagamento = pagamentoDao.insert(pag);
+					System.out.println("Numero do seu pedido: "+ id_pedido);
+					System.out.println("Numero do seu pagamento: "+codigoPagamento);
+					System.out.println("\n\n");
+				}else {
+					System.out.println("metodo nao aceito");
+					System.out.println("\n\n");
 				}
-				
-				
 			}
 			else if(es1.equals("2")){
-				System.out.println("É uma pena, quem sabe em outro momento...");
-				System.out.println("Encerrando sistema...");
+				System.out.println("Obrigado, até a proxima vez!");
 			}
 			else if(es1.equals("funcionario")) {
 				System.out.println("=== Login === ");
