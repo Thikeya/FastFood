@@ -18,6 +18,7 @@ import model.dao.ProdutoDao;
 import model.dao.PromocaoDao;
 import model.entities.Atendente;
 import model.entities.Item_Pedido;
+import model.entities.Pagamento;
 import model.entities.Pedido;
 
 public class Program {
@@ -67,7 +68,7 @@ public class Program {
 							Item_Pedido item_pedido = new Item_Pedido();
 							item_pedido.setQtdeProdutos(quantidadeProduto);
 							item_pedido.setProduto(produtoDao.findById(escolhaProduto));
-							item_pedido.setIngrediente(null);
+							item_pedido.setIngrediente(ingredienteDao.findById(1));
 							item_pedido.setQtdeIngredientes(0);
 							
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
@@ -87,7 +88,7 @@ public class Program {
 							int quantidadeIngrediente = sc.nextInt();sc.nextLine();
 							Item_Pedido item_pedido = new Item_Pedido();
 							item_pedido.setQtdeProdutos(0);
-							item_pedido.setProduto(null);
+							item_pedido.setProduto(produtoDao.findById(1));
 							item_pedido.setIngrediente(ingredienteDao.findById(escolhaIngrediente));
 							item_pedido.setQtdeIngredientes(quantidadeIngrediente);
 							
@@ -102,8 +103,19 @@ public class Program {
 					System.out.println("1- Sim // 2- Nao");
 					con = sc.nextInt(); sc.nextLine();
 				}
-				System.out.println("Finalizando pedido");
+				System.out.println("Realizar pagamento");
+				Pedido ped = pedidoDao.findById(id_pedido);
+				System.out.println("Numero do pedido: " + ped.getPedido_id());
+				System.out.println("Cliente: " + ped.getDescricao());
+				System.out.println("Horario do pedido: " + ped.getHorarioPedido());
+				System.out.println("Valor a ser pago");
+				pedidoDao.findPrecoById(id_pedido);
+				System.out.println("Escolha o método de pagamento: 1- Cartao de credito // 2-QR Code");
 				
+				int mtdpagamento = sc.nextInt();sc.nextLine();
+				if(mtdpagamento == 1) {
+					Pagamento pag = new Pagamento();
+				}
 				
 				
 			}

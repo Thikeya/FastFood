@@ -150,5 +150,4 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			DB.closeResultSet(rs);
 		}
 	}
-	
 }

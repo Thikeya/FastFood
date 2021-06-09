@@ -4,7 +4,18 @@ public class Pagamento {
 	private int pagamento_id;
 	private String pagamentoAutorizado;
 	private String tipoDePag;
+	private String status;
 	
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
 	private Pedido pedido;
 	
 	public Pagamento() {
@@ -75,8 +86,10 @@ public class Pagamento {
 	@Override
 	public String toString() {
 		return "Pagamento [pagamento_id=" + pagamento_id + ", pagamentoAutorizado=" + pagamentoAutorizado
-				+ ", tipoDePag=" + tipoDePag + ", codigo do pedido=" + pedido.getPedido_id() + "]";
+				+ ", tipoDePag=" + tipoDePag + ", status=" + status + ", numero do pedido=" + pedido.getPedido_id() + "]";
 	}
+
+
 	
 	
 }

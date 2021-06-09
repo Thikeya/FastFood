@@ -139,4 +139,26 @@ public class PedidoDaoJDBC implements PedidoDao {
 		}
 	}
 
+	@Override
+	public void findPrecoById(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT SUM((qtd_produto*produto.valor + qtd_ingrediente*ingrediente.valor_porcao)) as Total FROM item_pedido INNER JOIN produto INNER JOIN ingrediente INNER JOIN pedido_item ON item_pedido.produto_id = produto.produto_id AND item_pedido.ingrediente_id = ingrediente.ingrediente_id WHERE item_pedido.item_pedido_id = pedido_item.item_pedido_id AND pedido_item.pedido_id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Pedido ped = new Pedido();
+				ped.setValor(rs.getInt("Total"));
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
 }

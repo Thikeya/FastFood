@@ -30,15 +30,15 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO item_pedido "
-					+ "(produto_id, qtd_produto, ingrediente_id, qtd_ingrediente) "
+					+ "(qtd_produto, qtd_ingrediente, produto_id, ingrediente_id) "
 					+ "VALUES "
 					+ "(?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
-			st.setInt(1, obj.getProduto().getProduto_id());
-			st.setInt(2, obj.getQtdeProdutos());
-			st.setInt(3, obj.getIngrediente().getIngrediente_id());
-			st.setInt(4, obj.getQtdeIngredientes());
+			st.setInt(1, obj.getQtdeProdutos());
+			st.setInt(2, obj.getQtdeIngredientes());
+			st.setInt(3, obj.getProduto().getProduto_id());
+			st.setInt(4, obj.getIngrediente().getIngrediente_id());
 			
 			int rowsAffected = st.executeUpdate();
 			

@@ -49,7 +49,7 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM ingrediente");
+			st = conn.prepareStatement("SELECT * FROM ingrediente WHERE ingrediente_id > 1");
 			rs = st.executeQuery();
 			List<Ingrediente> list = new ArrayList<>();
 			while (rs.next()) {

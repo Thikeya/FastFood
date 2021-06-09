@@ -1,14 +1,20 @@
 package model.entities;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class Pedido {
 	private int pedido_id;
 	private String horarioPedido;
 	private String descricao;
 	private String statusPedido;
+	private int valor;
 	
+	public int getValor() {
+		return valor;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+
 	private Atendente atendente;
 	
 	public Atendente getAtendente() {
