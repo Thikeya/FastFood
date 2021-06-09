@@ -84,7 +84,7 @@ public class Program {
 						while(continuar==1) {
 							System.out.println("escolha um ingrediente:");
 							int escolhaIngrediente = sc.nextInt();sc.nextLine();
-							System.out.println("digite um ingrediente:");
+							System.out.println("digite a quantidade:");
 							int quantidadeIngrediente = sc.nextInt();sc.nextLine();
 							Item_Pedido item_pedido = new Item_Pedido();
 							item_pedido.setQtdeProdutos(0);
@@ -94,12 +94,12 @@ public class Program {
 							
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
 							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByIngrediente(id_item_pedido));
-							System.out.println("adicionar mais algum produto?");
+							System.out.println("adicionar mais algum ingrediente?");
 							System.out.println("1-Sim // 2- Não");
 							continuar=sc.nextInt();sc.nextLine();
 						}
 					}
-					System.out.println("Deseja inserir mais algo?");
+					System.out.println("Deseja inserir mais algum produto/ingrediente?");
 					System.out.println("1- Sim // 2- Nao");
 					con = sc.nextInt(); sc.nextLine();
 				}

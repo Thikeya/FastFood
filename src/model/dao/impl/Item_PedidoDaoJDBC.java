@@ -161,12 +161,8 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 				Item_Pedido it_ped = new Item_Pedido();
 				Ingrediente ing = new Ingrediente();
 				it_ped.setItem_pedido_id(rs.getInt("item_pedido_id"));
-				it_ped.setQtdeIngredientes(rs.getInt("qtd_produto"));
+				it_ped.setQtdeIngredientes(rs.getInt("qtd_ingrediente"));
 				ing.setIngrediente_id(rs.getInt("ingrediente_id"));
-				ing.setNome("nome");
-				ing.setValidade(rs.getDate("validade"));
-				ing.setValorPorcao(rs.getDouble("valor_porcao"));
-				ing.setUnidadeMedida(rs.getString("unidade_medida"));
 				it_ped.setIngrediente(ing);
 				return it_ped;
 			}

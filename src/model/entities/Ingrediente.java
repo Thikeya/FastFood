@@ -83,8 +83,8 @@ public class Ingrediente {
 	
 	@Override
 	public String toString() {
-		return "Ingrediente [ingrediente_id=" + ingrediente_id + ", nome=" + nome + ", unidadeMedida=" + unidadeMedida
-				+ ", validade=" + validade + ", valorPorcao=" + valorPorcao + ", qtdeEstoque=" + qtdeEstoque + "]";
+		return "\ningrediente_id=" + ingrediente_id + ", nome=" + nome + ", unidadeMedida=" + unidadeMedida
+				+ ", validade=" + validade + ", valorPorcao=" + valorPorcao + ", qtdeEstoque=" + qtdeEstoque;
 	}
 
 	public Ingrediente() {
