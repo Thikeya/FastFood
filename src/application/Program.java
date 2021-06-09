@@ -49,7 +49,7 @@ public class Program {
 				pedido.setAtendente(atendenteDao.findById(1));
 				pedido.setDescricao(nomeCliente);
 				pedido.setHorarioPedido(timeStamp);
-				pedido.setStatusPedido("a pagar");
+				pedido.setStatusPedido("a espera");
 				int id_pedido = pedidoDao.insert(pedido);
 				int con = 1;
 				while(con == 1) {
