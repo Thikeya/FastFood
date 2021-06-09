@@ -139,56 +139,72 @@ public class Program {
 				System.out.println("Obrigado, até a proxima vez!");
 			}
 			else if(es1.equals("funcionario")) {
-				System.out.println("=== Login === ");
-				System.out.println("Insira seu login: ");
-				String login = sc.nextLine();
-				System.out.println("Insira sua senha: ");
-				String senha = sc.nextLine();
-				Atendente atendente = new Atendente();
-				if(atendente.verificarAdmin(login, senha)) {
-					atendente.listarAdminOpcoes();
-				}
-				else if(atendenteDao.findLogin(login, senha)) {
-					System.out.println("login efetuado com sucesso");
-					int atendenteEscolha = atendente.listarAtendenteOpcoes();
-					switch(atendenteEscolha) {
-						case 1:
-							pedidoDao.findAll();
-							int escolherPedido = sc.nextInt();sc.nextLine();
-							if(pedidoDao.findById(escolherPedido).getAtendente().getAtendente_id() == 1) {
-								pedidoDao.update(pedidoDao.findById(escolherPedido));
+				boolean funcionarioTrue = true;
+				while(funcionarioTrue) {
+					System.out.println("=== Login === ");
+					System.out.println("Insira seu login: ");
+					String login = sc.nextLine();
+					System.out.println("Insira sua senha: ");
+					String senha = sc.nextLine();
+					Atendente atende = new Atendente();
+					atende = atendenteDao.findLogin(login, senha);
+					
+					if(atende!=null) {
+						if(atende.verificarAdmin(login, senha)) {
+							atende.listarAdminOpcoes();
+						}else {
+							System.out.println("login efetuado com sucesso");
+							int atendenteEscolha = atende.listarAtendenteOpcoes();
+							switch(atendenteEscolha) {
+								case 1:
+									System.out.println(pedidoDao.findAll());
+									System.out.println("Escolha um codigo do pedido que deseja adicionar");
+									int escolherPedido = sc.nextInt();sc.nextLine();
+									if(pedidoDao.findById(escolherPedido).getAtendente().getAtendente_id() == 1) {
+										Pedido pedido = pedidoDao.findById(escolherPedido);
+										pedido.setAtendente(atende);
+										pedidoDao.updateAtendente(pedido);
+									}
+									else {
+										System.out.println("Esse pedido já possui um atendente cadastrado");
+										break;
+									}
+									break;
+								case 2:
+									System.out.println(pedidoDao.findAll());
+									Pedido pedido = new Pedido();
+									System.out.println("Escolha o pedido que deseja alterar o status");
+									escolherPedido = sc.nextInt();sc.nextLine();
+									pedido = pedidoDao.findById(escolherPedido);
+									if(!pedido.getStatusPedido().equals("Pedido finalizado")) {
+										System.out.println("informe o novo status:");
+										String novoStatus = sc.nextLine();
+										pedidoDao.updateStatus(pedido, novoStatus);
+									}else {
+										System.out.println("Nao foi possivel alterar o status");
+									}
+									break;
+								case 3:
+									System.out.println("Saindo do login");
+									funcionarioTrue = false;
+									break;
+								default:
+									System.out.println("escolha invalida");
+									System.out.println("sistema finalizado...");
+									funcionarioTrue = false;
+									break;
 							}
-							else {
-								System.out.println("Esse pedido já possui uma atendente cadastrado");
-							}
-							break;
-						case 2:
-							pedidoDao.findAll();
-							Pedido pedido = new Pedido();
-							escolherPedido = sc.nextInt();sc.nextLine();
-							pedido = pedidoDao.findById(escolherPedido);
-							if(!pedido.getStatusPedido().equals("finalizado")) {
-								System.out.println("informe o novo status:");
-								String novoStatus = sc.nextLine();
-								pedido.setStatusPedido(novoStatus);
-								pedidoDao.update(pedido);
-							}
-							break;
-						case 3:
-							break;
-						default:
-							System.out.println("escolha invalida");
-							System.out.println("sistema finalizado...");
-							break;
+						}
+					}else {
+						System.out.println("Login não efetuado");
+						System.out.println("Deseja tentar novamente?");
+						System.out.println("1-Sim // 2-Nao");
+						int resp = sc.nextInt();sc.nextLine();
+						if(resp == 2) {
+							funcionarioTrue = false;
+						}
 					}
 				}
-				else {
-					System.out.println("login não efetuado");
-					System.out.println("Encerrando sistema...");
-					break;
-					}
-			}else {
-				System.out.println("Opcao invalida");
 			}
 		}
 	}

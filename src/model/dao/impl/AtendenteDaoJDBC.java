@@ -125,7 +125,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 	}
 
 	@Override
-	public boolean findLogin(String login, String senha) {
+	public Atendente findLogin(String login, String senha) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -138,9 +138,9 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 				atend.setAtendente_id(rs.getInt("atendente_id"));
 				atend.setLogin(rs.getString("login"));
 				atend.setSenha(rs.getString("senha"));
-				return true;
+				return atend;
 			}
-			return false;
+			return null;
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());

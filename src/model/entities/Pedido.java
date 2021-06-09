@@ -83,8 +83,8 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [pedido id=" + pedido_id + ", horario do Pedido=" + horarioPedido + ", descricao=" + descricao
-				+ ", status do Pedido=" + statusPedido + ", codigo do atendente=" + atendente.getAtendente_id() + "]";
+		return "\nPedido id=" + pedido_id + ", horario do Pedido=" + horarioPedido + ", descricao=" + descricao
+				+ ", status do Pedido=" + statusPedido + ", codigo do atendente=" + atendente.getAtendente_id();
 	}
 
 	public Pedido() {

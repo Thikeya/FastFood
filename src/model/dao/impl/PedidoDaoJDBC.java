@@ -66,7 +66,44 @@ public class PedidoDaoJDBC implements PedidoDao {
 	@Override
 	public void update(Pedido obj) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	public void updateAtendente(Pedido obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"UPDATE pedido SET atendente_id = ? WHERE pedido_id = ?");
+			
+			st.setInt(1, obj.getAtendente().getAtendente_id());
+			st.setInt(2, obj.getPedido_id());
+			st.executeUpdate();
+			System.out.println("Atendente cadastrado no pedido");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+	
+	public void updateStatus(Pedido obj, String status) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"UPDATE pedido SET status_pedido = ? WHERE pedido_id = ?");
+			
+			st.setString(1, status);
+			st.setInt(2, obj.getPedido_id());
+			st.executeUpdate();
+			System.out.println("Status atualizado");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
