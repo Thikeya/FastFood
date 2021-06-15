@@ -6,6 +6,7 @@ public class Pedido {
 	private String descricao;
 	private String statusPedido;
 	private double valor;
+	private Atendente atendente;
 	
 	public double getValor() {
 		return valor;
@@ -14,8 +15,6 @@ public class Pedido {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-
-	private Atendente atendente;
 	
 	public Atendente getAtendente() {
 		return atendente;

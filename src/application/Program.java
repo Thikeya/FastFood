@@ -72,6 +72,7 @@ public class Program {
 							item_pedido.setQtdeIngredientes(0);
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
 							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByProduto(id_item_pedido));
+							produtoDao.atualizaQuantidade(item_pedidoDao.findByProduto(id_item_pedido).getProduto(),quantidadeProduto);
 							System.out.println("adicionar mais algum produto?");
 							System.out.println("1-Sim // 2- Não");
 							continuar=sc.nextInt();sc.nextLine();
@@ -92,6 +93,7 @@ public class Program {
 							item_pedido.setQtdeIngredientes(quantidadeIngrediente);
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
 							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByIngrediente(id_item_pedido));
+							ingredienteDao.atualizaQuantidade(item_pedidoDao.findByIngrediente(id_item_pedido).getIngrediente(), quantidadeIngrediente);
 							System.out.println("adicionar mais algum ingrediente?");
 							System.out.println("1-Sim // 2- Não");
 							continuar=sc.nextInt();sc.nextLine();

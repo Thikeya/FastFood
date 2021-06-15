@@ -37,7 +37,6 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 	@Override
 	public void deleteById(Integer id) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -107,4 +106,20 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 		}
 	}
 
+	@Override
+	public void atualizaQuantidade(Produto produto, Integer quantidade) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE produto SET qtd_estoque = (qtd_estoque - ?) WHERE produto_id = ?");
+			st.setInt(1, quantidade);
+			st.setInt(2, produto.getProduto_id());
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
 }

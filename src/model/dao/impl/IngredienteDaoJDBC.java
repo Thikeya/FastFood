@@ -99,4 +99,21 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 		}
 	}
 
+	@Override
+	public void atualizaQuantidade(Ingrediente ingrediente, Integer quantidade) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE ingrediente SET qtd_estoque = (qtd_estoque - ?) WHERE ingrediente_id = ?");
+			st.setInt(1, quantidade);
+			st.setInt(2, ingrediente.getIngrediente_id());
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
 }
