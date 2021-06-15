@@ -127,37 +127,41 @@ public class Program {
 						remover = sc.nextInt();sc.nextLine();
 					}
 				}
-				System.out.println("Realizar pagamento");
 				Pedido ped = pedidoDao.findById(id_pedido);
-				System.out.println("Numero do pedido: " + ped.getPedido_id());
-				System.out.println("Cliente: " + ped.getDescricao());
-				System.out.println("Horario do pedido: " + ped.getHorarioPedido());
-				System.out.println("Valor a ser pago R$:" + pedidoDao.findPrecoById(id_pedido));
-				System.out.println("\n");
-				System.out.println("Escolha o método de pagamento:\n1- Cartao de credito // 2-QR Code");
-				int mtdpagamento = sc.nextInt();sc.nextLine();
-				int codigoPagamento = 0;
-				if(mtdpagamento == 1) {
-					Pagamento pag = new Pagamento();
-					pag.setTipoDePag("Cartao de credito");
-					pag.setStatus("Pagamento confirmado");
-					pag.setPedido(pedidoDao.findById(id_pedido));
-					codigoPagamento = pagamentoDao.insert(pag);
-					System.out.println("Numero do seu pedido: "+ id_pedido);
-					System.out.println("Numero do seu pagamento: "+codigoPagamento);
-					System.out.println("\n\n");
-				}else if(mtdpagamento == 2) {
-					Pagamento pag = new Pagamento();
-					pag.setTipoDePag("QR Code");
-					pag.setStatus("Pagamento confirmado");
-					pag.setPedido(pedidoDao.findById(id_pedido));
-					codigoPagamento = pagamentoDao.insert(pag);
-					System.out.println("Numero do seu pedido: "+ id_pedido);
-					System.out.println("Numero do seu pagamento: "+codigoPagamento);
-					System.out.println("\n\n");
+				if(pedidoDao.findPrecoById(id_pedido) > 0) {
+					System.out.println("Realizar pagamento");
+					System.out.println("Numero do pedido: " + ped.getPedido_id());
+					System.out.println("Cliente: " + ped.getDescricao());
+					System.out.println("Horario do pedido: " + ped.getHorarioPedido());
+					System.out.println("Valor a ser pago R$:" + pedidoDao.findPrecoById(id_pedido));
+					System.out.println("\n");
+					System.out.println("Escolha o método de pagamento:\n1- Cartao de credito // 2-QR Code");
+					int mtdpagamento = sc.nextInt();sc.nextLine();
+					int codigoPagamento = 0;
+					if(mtdpagamento == 1) {
+						Pagamento pag = new Pagamento();
+						pag.setTipoDePag("Cartao de credito");
+						pag.setStatus("Pagamento confirmado");
+						pag.setPedido(pedidoDao.findById(id_pedido));
+						codigoPagamento = pagamentoDao.insert(pag);
+						System.out.println("Numero do seu pedido: "+ id_pedido);
+						System.out.println("Numero do seu pagamento: "+codigoPagamento);
+						System.out.println("\n\n");
+					}else if(mtdpagamento == 2) {
+						Pagamento pag = new Pagamento();
+						pag.setTipoDePag("QR Code");
+						pag.setStatus("Pagamento confirmado");
+						pag.setPedido(pedidoDao.findById(id_pedido));
+						codigoPagamento = pagamentoDao.insert(pag);
+						System.out.println("Numero do seu pedido: "+ id_pedido);
+						System.out.println("Numero do seu pagamento: "+codigoPagamento);
+						System.out.println("\n\n");
+					}else {
+						System.out.println("metodo nao aceito");
+						System.out.println("\n\n");
+					}
 				}else {
-					System.out.println("metodo nao aceito");
-					System.out.println("\n\n");
+					System.out.println("Compra não efetuada, sem itens adicionados");
 				}
 			}
 			else if(es1.equals("2")){
