@@ -13,7 +13,6 @@ import db.DbException;
 import model.dao.Item_PedidoDao;
 import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
-import model.entities.Pedido;
 import model.entities.Produto;
 
 public class Item_PedidoDaoJDBC implements Item_PedidoDao {
@@ -78,14 +77,49 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("DELETE FROM item_pedido WHERE item_pedido_id = ?");
+			st.setInt(1, id);
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
 	public Item_Pedido findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT item_pedido_id, qtd_produto, qtd_ingrediente, produto_id, ingrediente_id FROM item_pedido WHERE item_pedido_id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Item_Pedido it_ped = new Item_Pedido();
+				Ingrediente ing = new Ingrediente();
+				Produto prod = new Produto();
+				ing.setIngrediente_id(rs.getInt("ingrediente_id"));
+				it_ped.setIngrediente(ing);
+				prod.setProduto_id(rs.getInt("produto_id"));
+				it_ped.setProduto(prod);
+				it_ped.setQtdeIngredientes(rs.getInt("qtd_ingrediente"));
+				it_ped.setQtdeProdutos(rs.getInt("qtd_produto"));
+				return it_ped;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override

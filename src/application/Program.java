@@ -108,6 +108,24 @@ public class Program {
 				int opRemocao = sc.nextInt();sc.nextLine();
 				if(opRemocao == 1) {
 					System.out.println(pedido_itemDao.carrinho(id_pedido));
+					int remover = 1;
+					while(remover == 1) {
+						System.out.println("Código que deseja remover");
+						int codRemover = sc.nextInt();sc.nextLine();
+						Item_Pedido remove = item_pedidoDao.findById(codRemover);
+						if(remove.getQtdeProdutos()>0) {
+							pedido_itemDao.deleteById(codRemover);
+							//produtoDao.atualizaQuantidade(remove.getProduto(), (remove.getQtdeProdutos()*(-1)));
+							//item_pedidoDao.deleteById(codRemover);
+						}else if(remove.getQtdeIngredientes()>0) {
+							pedido_itemDao.deleteById(codRemover);
+							//ingredienteDao.atualizaQuantidade(remove.getIngrediente(), (remove.getQtdeIngredientes()*(-1)));
+							//item_pedidoDao.deleteById(codRemover);
+						}
+						System.out.println("Continuar a remover?");
+						System.out.println("1- Sim // 2- Nao");
+						remover = sc.nextInt();sc.nextLine();
+					}
 				}
 				System.out.println("Realizar pagamento");
 				Pedido ped = pedidoDao.findById(id_pedido);
