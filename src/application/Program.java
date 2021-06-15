@@ -115,12 +115,12 @@ public class Program {
 						Item_Pedido remove = item_pedidoDao.findById(codRemover);
 						if(remove.getQtdeProdutos()>0) {
 							pedido_itemDao.deleteById(codRemover);
-							//produtoDao.atualizaQuantidade(remove.getProduto(), (remove.getQtdeProdutos()*(-1)));
-							//item_pedidoDao.deleteById(codRemover);
+							produtoDao.atualizaQuantidade(remove.getProduto(), (remove.getQtdeProdutos()*(-1)));
+							item_pedidoDao.deleteById(codRemover);
 						}else if(remove.getQtdeIngredientes()>0) {
 							pedido_itemDao.deleteById(codRemover);
-							//ingredienteDao.atualizaQuantidade(remove.getIngrediente(), (remove.getQtdeIngredientes()*(-1)));
-							//item_pedidoDao.deleteById(codRemover);
+							ingredienteDao.atualizaQuantidade(remove.getIngrediente(), (remove.getQtdeIngredientes()*(-1)));
+							item_pedidoDao.deleteById(codRemover);
 						}
 						System.out.println("Continuar a remover?");
 						System.out.println("1- Sim // 2- Nao");
