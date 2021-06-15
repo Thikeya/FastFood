@@ -12,4 +12,5 @@ public interface Pedido_ItemDao {
 	void deleteById(Integer id);
 	Pedido_Item findById(Integer id);
 	List<Pedido_Item> findAll();
+	List<Pedido_Item> carrinho(Integer id);
 }

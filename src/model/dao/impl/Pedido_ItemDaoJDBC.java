@@ -11,6 +11,7 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import model.dao.Pedido_ItemDao;
+import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
 import model.entities.Pedido;
 import model.entities.Pedido_Item;
@@ -71,7 +72,6 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 
 	@Override
 	public Pedido_Item findById(Integer id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -80,7 +80,7 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM pedido_Item");
+			st = conn.prepareStatement("SELECT * FROM pedido_item");
 			rs = st.executeQuery();
 			List<Pedido_Item> list = new ArrayList<>();
 			while (rs.next()) {
@@ -105,4 +105,36 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 		}
 	}
 
+	@Override
+	public List<Pedido_Item> carrinho(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, ingrediente.nome as nome, item_pedido.qtd_ingrediente as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN ingrediente ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.ingrediente_id = ingrediente.ingrediente_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_ingrediente > 0");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			List<Pedido_Item> list = new ArrayList<>();
+			while (rs.next()) {
+				Pedido_Item pedido_Item = new Pedido_Item();
+				Pedido pedido = new Pedido();
+				Item_Pedido item_pedido = new Item_Pedido();
+				Ingrediente ingrediente = new Ingrediente();
+				
+				ingrediente.setNome(rs.getString("nome"));
+				item_pedido.setQtdeIngredientes(rs.getInt("quantidade"));
+				item_pedido.setItem_pedido_id(rs.getInt("item_pedido_id"));
+				pedido_Item.setItem_pedido(item_pedido);
+				pedido_Item.setPedido(pedido);
+				list.add(pedido_Item);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 }
