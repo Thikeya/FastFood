@@ -101,14 +101,13 @@ public class Program {
 					}
 					System.out.println("Deseja inserir mais algum produto/ingrediente?");
 					System.out.println("1- Sim // 2- Nao");
-					System.out.println("\n");
 					con = sc.nextInt(); sc.nextLine();
-					System.out.println("Deseja remover algum produto/ingrediente?");
-					System.out.println("1- Sim // 2- Nao");
-					int opRemocao = sc.nextInt();sc.nextLine();
-					if(opRemocao == 1) {
-						System.out.println(pedido_itemDao.carrinho(id_pedido));
-					}
+				}
+				System.out.println("Deseja remover algum produto/ingrediente?");
+				System.out.println("1- Sim // 2- Nao");
+				int opRemocao = sc.nextInt();sc.nextLine();
+				if(opRemocao == 1) {
+					System.out.println(pedido_itemDao.carrinho(id_pedido));
 				}
 				System.out.println("Realizar pagamento");
 				Pedido ped = pedidoDao.findById(id_pedido);

@@ -15,6 +15,7 @@ import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
 import model.entities.Pedido;
 import model.entities.Pedido_Item;
+import model.entities.Produto;
 
 public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 
@@ -110,7 +111,7 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, ingrediente.nome as nome, item_pedido.qtd_ingrediente as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN ingrediente ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.ingrediente_id = ingrediente.ingrediente_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_ingrediente > 0");
+			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, ingrediente.nome as nome, ingrediente.ingrediente_id, item_pedido.qtd_ingrediente as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN ingrediente ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.ingrediente_id = ingrediente.ingrediente_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_ingrediente > 0");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			List<Pedido_Item> list = new ArrayList<>();
@@ -119,9 +120,27 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 				Pedido pedido = new Pedido();
 				Item_Pedido item_pedido = new Item_Pedido();
 				Ingrediente ingrediente = new Ingrediente();
-				
+				ingrediente.setIngrediente_id(rs.getInt("ingrediente_id"));
 				ingrediente.setNome(rs.getString("nome"));
+				item_pedido.setIngrediente(ingrediente);
 				item_pedido.setQtdeIngredientes(rs.getInt("quantidade"));
+				item_pedido.setItem_pedido_id(rs.getInt("item_pedido_id"));
+				pedido_Item.setItem_pedido(item_pedido);
+				pedido_Item.setPedido(pedido);
+				list.add(pedido_Item);
+			}
+			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, produto.nome as nome, produto.produto_id, item_pedido.qtd_produto as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN produto ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.produto_id = produto.produto_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_produto > 0;");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				Pedido_Item pedido_Item = new Pedido_Item();
+				Pedido pedido = new Pedido();
+				Item_Pedido item_pedido = new Item_Pedido();
+				Produto produto = new Produto();
+				produto.setProduto_id(rs.getInt("produto_id"));
+				produto.setNome(rs.getString("nome"));
+				item_pedido.setProduto(produto);
+				item_pedido.setQtdeProdutos(rs.getInt("quantidade"));
 				item_pedido.setItem_pedido_id(rs.getInt("item_pedido_id"));
 				pedido_Item.setItem_pedido(item_pedido);
 				pedido_Item.setPedido(pedido);
