@@ -10,4 +10,5 @@ public interface Ing_ProdDao {
 	void deleteById(Integer id);
 	Ing_Prod findById(Integer id);
 	List<Ing_Prod> findAll();
+	void atualizaIngredientes(Integer id, int quantidade);
 }

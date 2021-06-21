@@ -78,4 +78,22 @@ public class Ing_ProdDaoJDBC implements Ing_ProdDao{
 		}
 	}
 
+
+	@Override
+	public void atualizaIngredientes(Integer id, int quantidade) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("update ingrediente, ing_prod set ingrediente.qtd_estoque = (ingrediente.qtd_estoque - ing_prod.qtd_ingrediente*?) where ingrediente.ingrediente_id = ing_prod.ingrediente_id AND produto_id = ?");
+			st.setInt(1, quantidade);
+			st.setInt(2, id);
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
 }

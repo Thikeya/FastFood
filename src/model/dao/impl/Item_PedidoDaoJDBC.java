@@ -10,13 +10,16 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
+import model.dao.DaoFactory;
+import model.dao.Ing_ProdDao;
 import model.dao.Item_PedidoDao;
+import model.entities.Ing_Prod;
 import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
 import model.entities.Produto;
 
 public class Item_PedidoDaoJDBC implements Item_PedidoDao {
-
+	Ing_ProdDao ing_prodDao = DaoFactory.createIng_ProdDao();
 	private Connection conn;
 	
 	public Item_PedidoDaoJDBC(Connection conn) {
@@ -38,6 +41,7 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 			st.setInt(2, obj.getQtdeIngredientes());
 			if(obj.getIngrediente() == null) {
 				st.setInt(3, obj.getProduto().getProduto_id());
+				ing_prodDao.atualizaIngredientes(obj.getProduto().getProduto_id(), obj.getQtdeProdutos());
 				st.setInt(4, 1);
 			}else if(obj.getProduto() == null) {
 				st.setInt(3, 1);
