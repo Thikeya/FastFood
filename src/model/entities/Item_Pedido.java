@@ -4,11 +4,20 @@ public class Item_Pedido {
 	private int item_pedido_id;
 	private int qtdeProdutos;
 	private int qtdeIngredientes;
+	private String status;
 	
 	private Produto produto;
 	private Ingrediente ingrediente;
 	
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Produto getProduto() {
 		return produto;
 	}

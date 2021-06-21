@@ -70,6 +70,7 @@ public class Program {
 							item_pedido.setProduto(produtoDao.findById(escolhaProduto));
 							item_pedido.setIngrediente(ingredienteDao.findById(1));
 							item_pedido.setQtdeIngredientes(0);
+							item_pedido.setStatus("ativo");
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
 							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByProduto(id_item_pedido));
 							produtoDao.atualizaQuantidade(item_pedidoDao.findByProduto(id_item_pedido).getProduto(),quantidadeProduto);
@@ -91,6 +92,7 @@ public class Program {
 							item_pedido.setProduto(produtoDao.findById(1));
 							item_pedido.setIngrediente(ingredienteDao.findById(escolhaIngrediente));
 							item_pedido.setQtdeIngredientes(quantidadeIngrediente);
+							item_pedido.setStatus("ativo");
 							id_item_pedido = item_pedidoDao.insert(item_pedido);
 							pedido_itemDao.insert(pedidoDao.findById(id_pedido), item_pedidoDao.findByIngrediente(id_item_pedido));
 							ingredienteDao.atualizaQuantidade(item_pedidoDao.findByIngrediente(id_item_pedido).getIngrediente(), quantidadeIngrediente);
@@ -107,20 +109,20 @@ public class Program {
 				System.out.println("1- Sim // 2- Nao");
 				int opRemocao = sc.nextInt();sc.nextLine();
 				if(opRemocao == 1) {
-					System.out.println(pedido_itemDao.carrinho(id_pedido));
 					int remover = 1;
 					while(remover == 1) {
+						System.out.println(pedido_itemDao.carrinho(id_pedido));
 						System.out.println("Código que deseja remover");
 						int codRemover = sc.nextInt();sc.nextLine();
 						Item_Pedido remove = item_pedidoDao.findById(codRemover);
 						if(remove.getQtdeProdutos()>0) {
 							pedido_itemDao.deleteById(codRemover);
 							produtoDao.atualizaQuantidade(remove.getProduto(), (remove.getQtdeProdutos()*(-1)));
-							item_pedidoDao.deleteById(codRemover);
+							item_pedidoDao.removerCarrinho(codRemover);
 						}else if(remove.getQtdeIngredientes()>0) {
 							pedido_itemDao.deleteById(codRemover);
 							ingredienteDao.atualizaQuantidade(remove.getIngrediente(), (remove.getQtdeIngredientes()*(-1)));
-							item_pedidoDao.deleteById(codRemover);
+							item_pedidoDao.removerCarrinho(codRemover);
 						}
 						System.out.println("Continuar a remover?");
 						System.out.println("1- Sim // 2- Nao");
@@ -138,27 +140,34 @@ public class Program {
 					System.out.println("Escolha o método de pagamento:\n1- Cartao de credito // 2-QR Code");
 					int mtdpagamento = sc.nextInt();sc.nextLine();
 					int codigoPagamento = 0;
+					String num;
+					Pagamento pag = new Pagamento();
 					if(mtdpagamento == 1) {
-						Pagamento pag = new Pagamento();
-						pag.setTipoDePag("Cartao de credito");
-						pag.setStatus("Pagamento confirmado");
-						pag.setPedido(pedidoDao.findById(id_pedido));
-						codigoPagamento = pagamentoDao.insert(pag);
-						System.out.println("Numero do seu pedido: "+ id_pedido);
-						System.out.println("Numero do seu pagamento: "+codigoPagamento);
-						System.out.println("\n\n");
+						System.out.println("Insira o cartão");
+						num = sc.nextLine();
+						if(num.length() == 16) {
+							pag.setTipoDePag("Cartao de credito");
+							pag.setStatus("Pagamento confirmado");
+							pag.setPedido(pedidoDao.findById(id_pedido));
+							codigoPagamento = pagamentoDao.insert(pag);
+							System.out.println("Numero do seu pedido: "+ id_pedido);
+							System.out.println("Numero do seu pagamento: "+codigoPagamento);
+						}else {
+							System.out.println("Cartão não aceito");
+						}
 					}else if(mtdpagamento == 2) {
-						Pagamento pag = new Pagamento();
-						pag.setTipoDePag("QR Code");
-						pag.setStatus("Pagamento confirmado");
-						pag.setPedido(pedidoDao.findById(id_pedido));
-						codigoPagamento = pagamentoDao.insert(pag);
-						System.out.println("Numero do seu pedido: "+ id_pedido);
-						System.out.println("Numero do seu pagamento: "+codigoPagamento);
-						System.out.println("\n\n");
+						System.out.println("Informe o código de 4 digitos:");
+						num = sc.nextLine();
+						if(num.length() == 4) {
+							pag.setTipoDePag("QR Code");
+							pag.setStatus("Pagamento confirmado");
+							pag.setPedido(pedidoDao.findById(id_pedido));
+							codigoPagamento = pagamentoDao.insert(pag);
+							System.out.println("Numero do seu pedido: "+ id_pedido);
+							System.out.println("Numero do seu pagamento: "+codigoPagamento);
+						}
 					}else {
 						System.out.println("metodo nao aceito");
-						System.out.println("\n\n");
 					}
 				}else {
 					System.out.println("Compra não efetuada, sem itens adicionados");

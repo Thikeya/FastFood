@@ -29,9 +29,9 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO item_pedido "
-					+ "(qtd_produto, qtd_ingrediente, produto_id, ingrediente_id) "
+					+ "(qtd_produto, qtd_ingrediente, produto_id, ingrediente_id, status) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setInt(1, obj.getQtdeProdutos());
@@ -43,7 +43,7 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 				st.setInt(3, 1);
 				st.setInt(4, obj.getIngrediente().getIngrediente_id());
 			}
-			
+			st.setString(5, obj.getStatus());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -208,6 +208,22 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 		finally {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
+		}
+	}
+
+	@Override
+	public void removerCarrinho(Integer id) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE item_pedido SET status = 'cancelado' WHERE item_pedido_id = ?");
+			st.setInt(1, id);
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
 		}
 	}
 

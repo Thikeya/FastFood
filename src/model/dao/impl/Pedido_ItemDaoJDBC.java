@@ -121,7 +121,7 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, ingrediente.nome as nome, ingrediente.ingrediente_id, item_pedido.qtd_ingrediente as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN ingrediente ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.ingrediente_id = ingrediente.ingrediente_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_ingrediente > 0");
+			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, ingrediente.nome as nome, ingrediente.ingrediente_id, item_pedido.qtd_ingrediente as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN ingrediente ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.ingrediente_id = ingrediente.ingrediente_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_ingrediente > 0 AND item_pedido.status = 'ativo'");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			List<Pedido_Item> list = new ArrayList<>();
@@ -139,7 +139,7 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 				pedido_Item.setPedido(pedido);
 				list.add(pedido_Item);
 			}
-			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, produto.nome as nome, produto.produto_id, item_pedido.qtd_produto as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN produto ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.produto_id = produto.produto_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_produto > 0;");
+			st = conn.prepareStatement("SELECT pedido_item.item_pedido_id as item_pedido_id, produto.nome as nome, produto.produto_id, item_pedido.qtd_produto as quantidade FROM pedido_item INNER JOIN item_pedido INNER JOIN produto ON pedido_item.item_pedido_id = item_pedido.item_pedido_id AND item_pedido.produto_id = produto.produto_id AND pedido_item.pedido_id = ? AND item_pedido.qtd_produto > 0 AND item_pedido.status = 'ativo'");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			while (rs.next()) {
