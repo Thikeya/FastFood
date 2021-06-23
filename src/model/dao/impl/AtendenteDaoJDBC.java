@@ -129,7 +129,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT atendente_id, login, senha FROM atendente WHERE login = ? AND senha = ?");
+			st = conn.prepareStatement("SELECT atendente_id, login, senha, nome FROM atendente WHERE login = ? AND senha = ?");
 			st.setString(1, login);
 			st.setString(2, senha);
 			rs = st.executeQuery();
@@ -138,6 +138,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 				atend.setAtendente_id(rs.getInt("atendente_id"));
 				atend.setLogin(rs.getString("login"));
 				atend.setSenha(rs.getString("senha"));
+				atend.setNome(rs.getString("nome"));
 				return atend;
 			}
 			return null;
