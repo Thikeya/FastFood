@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +25,23 @@ public class Ing_ProdDaoJDBC implements Ing_ProdDao{
 	
 	
 	@Override
-	public void insert(Ing_Prod obj) {
-		// TODO Auto-generated method stub
-		
+	public boolean insert(Ing_Prod obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("INSERT INTO ing_prod (produto_id, ingrediente_id, qtd_ingrediente) VALUES (?, ?, ?)");
+			
+			st.setInt(1, obj.getProduto().getProduto_id());
+			st.setInt(2, obj.getIngrediente().getIngrediente_id());
+			st.setInt(3, obj.getQtdeIng());
+			st.executeUpdate();
+			return true;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

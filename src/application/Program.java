@@ -19,6 +19,7 @@ import model.dao.ProdutoDao;
 import model.dao.PromocaoDao;
 import model.entities.Atendente;
 import model.entities.Categoria;
+import model.entities.Ing_Prod;
 import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
 import model.entities.Pagamento;
@@ -196,10 +197,6 @@ public class Program {
 		return atendende.getAtendente_id();
 	}
 	
-	public void exibirPedidos() {
-		System.out.println(pedidoDao.findAll());
-	}
-	
 	public void vincularPedido(int numPedido, int funcionario) {
 		Atendente atendente = new Atendente();
 		atendente = atendenteDao.findById(funcionario);
@@ -309,12 +306,17 @@ public class Program {
 		}
 	}
 	
-	public void vincularProdutoIngrediente() {
-		
-	}
-	
-	public void vincularProdutoCategoria() {
-		
+	public void vincularProdutoIngrediente(int produto, int ingrediente, int quantidade) {
+		Ing_Prod ing_prod = new Ing_Prod();
+		ing_prod.setProduto(produtoDao.findById(produto));
+		ing_prod.setIngrediente(ingredienteDao.findById(ingrediente));
+		ing_prod.setQtdeIng(quantidade);
+		boolean sucesso = ing_prodDao.insert(ing_prod);
+		if(sucesso) {
+			System.out.println("Ingrediente vinculado com sucesso");
+		}else {
+			System.out.println("Ingrediente não foi vinculado");
+		}
 	}
 	
 	public void atualizarAtendente() {
@@ -344,12 +346,41 @@ public class Program {
 	public void atualizarProdutoCategoria() {
 		
 	}
-
-	public void exibirCategorias() {
-		System.out.println(categoriaDao.findAll());
-	}
-
-	public void exibirProdutos() {
-		System.out.println(produtoDao.findAll());
+	
+	public void listar(String escolha) {
+		switch(escolha) {
+			case "categoria":
+				System.out.println(categoriaDao.findAll());
+				break;
+			case "atendente":
+				System.out.println(atendenteDao.findAll());
+				break;
+			case "ing_prod":
+				System.out.println(ing_prodDao.findAll());
+				break;
+			case "ingrediente":
+				System.out.println(ingredienteDao.findAll());
+				break;
+			case "item_pedido":
+				System.out.println(item_pedidoDao.findAll());
+				break;
+			case "pagamento":
+				System.out.println(pagamentoDao.findAll());
+				break;
+			case "pedido":
+				System.out.println(pedidoDao.findAll());
+				break;
+			case "pedido_item":
+				System.out.println(pedido_itemDao.findAll());
+				break;
+			case "produto":
+				System.out.println(produtoDao.findAll());
+				break;
+			case "promocao":
+				System.out.println(promocaoDao.findAll());
+				break;
+			default:
+				break;
+		}
 	}
 }

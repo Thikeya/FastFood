@@ -86,13 +86,13 @@ public class Face {
 		int escolha = sc.nextInt(); sc.nextLine();
 		int numPedido = 0;
 		if(escolha == 1) {
-			program.exibirPedidos();
+			program.listar("pedido");
 			System.out.println("Escolha o nº do pedido:");
 			numPedido = sc.nextInt(); sc.nextLine();
 			program.vincularPedido(numPedido, funcionario);
 			return true;
 		}else if(escolha == 2) {
-			program.exibirPedidos();
+			program.listar("pedido");
 			numPedido = sc.nextInt(); sc.nextLine();
 			return true;
 		}else {
@@ -108,15 +108,14 @@ public class Face {
 		System.out.println("4- Cadastrar um produto");
 		System.out.println("5- Cadastrar uma promocao");
 		System.out.println("6- Vincular produto <-> ingrediente");
-		System.out.println("7- Vincular produto -> categoria");
-		System.out.println("8- Atualizar um atendente");
-		System.out.println("9- Atualizar uma categoria");
-		System.out.println("10- Atualizar um ingrediente");
-		System.out.println("11- Atualizar um produto");
-		System.out.println("12- Atualizar uma promocao");
-		System.out.println("13- Atualzar produto <-> ingrediente");
-		System.out.println("14- Atualizar produto -> categoria");
-		System.out.println("15- Sair");
+		System.out.println("7- Atualizar um atendente");
+		System.out.println("8- Atualizar uma categoria");
+		System.out.println("9- Atualizar um ingrediente");
+		System.out.println("10- Atualizar um produto");
+		System.out.println("11- Atualizar uma promocao");
+		System.out.println("12- Atualzar produto <-> ingrediente");
+		System.out.println("13- Atualizar produto -> categoria");
+		System.out.println("14- Sair");
 		int escolha = sc.nextInt(); sc.nextLine();
 		switch(escolha) {
 		case 1:
@@ -167,7 +166,7 @@ public class Face {
 			int quantidade_produto = sc.nextInt(); sc.nextLine();
 			System.out.println("Informe o data de fabricacao");
 			String fabricacao_produto = sc.nextLine();
-			program.exibirCategorias();
+			program.listar("categoria");
 			System.out.println("Informe o ID da categoria");
 			int categoria_produto = sc.nextInt(); sc.nextLine();
 			program.cadastrarProduto(nome_produto, valor_produto, descricao_produto, quantidade_produto, fabricacao_produto, categoria_produto);
@@ -182,39 +181,54 @@ public class Face {
 			double valor_promocao = sc.nextDouble(); sc.nextLine();
 			System.out.println("Informe a descricao: ");
 			String descricao_promocao = sc.nextLine();
-			program.exibirProdutos();
+			program.listar("produto");
 			System.out.println("Informe o ID do produto: ");
 			int produto_promocao = sc.nextInt(); sc.nextLine();
 			program.cadastrarPromocao(tipo_promocao, validade_promocao, valor_promocao, descricao_promocao, produto_promocao);
 			return true;
 		case 6:
 			System.out.println("Vinculando produto com ingrediente");
+			program.listar("produto");
+			System.out.println("Selecione um produto: ");
+			int produto_vinculo = sc.nextInt(); sc.nextLine();
+			program.listar("ingrediente");
+			System.out.println("Selecione um ingrediente: ");
+			int ingrediente_vinculo = sc.nextInt(); sc.nextLine();
+			System.out.println("Informe a quantidade do ingrediente: ");
+			int quantidade_ingProd = sc.nextInt(); sc.nextLine();
+			program.vincularProdutoIngrediente(produto_vinculo, ingrediente_vinculo, quantidade_ingProd);
 			return true;
 		case 7:
-			System.out.println("Vinculando produto com categoria");
+			System.out.println("Atualizando o atendente");
+			program.listar("atendente");
 			return true;
 		case 8:
-			System.out.println("Atualizando o atendente");
+			System.out.println("Atualizando a categoria");
+			program.listar("categoria");
 			return true;
 		case 9:
-			System.out.println("Atualizando a categoria");
+			System.out.println("Atualizando o ingrediente");
+			program.listar("ingrediente");
 			return true;
 		case 10:
-			System.out.println("Atualizando o ingrediente");
+			System.out.println("Atualizando o produto");
+			program.listar("produto");
 			return true;
 		case 11:
-			System.out.println("Atualizando o produto");
+			System.out.println("Atualizando a promocao");
+			program.listar("promocao");
 			return true;
 		case 12:
-			System.out.println("Atualizando a promocao");
+			System.out.println("Atualizando produto <-> ingrediente");
+			program.listar("produto");
+			program.listar("ingrediente");
 			return true;
 		case 13:
-			System.out.println("Atualizando produto <-> ingrediente");
+			System.out.println("Atualizando produto <-> categoria");
+			program.listar("produto");
+			program.listar("categoria");
 			return true;
 		case 14:
-			System.out.println("Atualizando produto <-> categoria");
-			return true;
-		case 15:
 			return false;
 		default:
 			return false;

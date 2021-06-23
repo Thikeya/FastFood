@@ -36,6 +36,7 @@ public class Ing_Prod {
 	}
 
 	public Ing_Prod() {
+		
 	}
 	
 }
