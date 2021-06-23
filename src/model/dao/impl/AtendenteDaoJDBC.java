@@ -63,8 +63,84 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 	}
 
 	@Override
-	public void update(Atendente obj) {
-		
+	public void updateNome(Atendente obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE atendente SET nome = ? WHERE atendente_id = ?");
+			st.setString(1, obj.getNome());
+			st.setInt(2, obj.getAtendente_id());
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+	
+	public void updateStatus(Atendente obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE atendente SET status = ? WHERE atendente_id = ?");
+			st.setString(1, obj.getStatus());
+			st.setInt(2, obj.getAtendente_id());
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+	
+	public void updateLogin(Atendente obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE atendente SET login = ? WHERE atendente_id = ?");
+			st.setString(1, obj.getLogin());
+			st.setInt(2, obj.getAtendente_id());
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+	
+	public void updateTurno(Atendente obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE atendente SET turno = ? WHERE atendente_id = ?");
+			st.setString(1, obj.getTurno());
+			st.setInt(2, obj.getAtendente_id());
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+	
+	public void updateSenha(Atendente obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE atendente SET senha = ? WHERE atendente_id = ?");
+			st.setString(1, obj.getSenha());
+			st.setInt(2, obj.getAtendente_id());
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

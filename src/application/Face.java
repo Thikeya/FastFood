@@ -117,6 +117,7 @@ public class Face {
 		System.out.println("13- Atualizar produto -> categoria");
 		System.out.println("14- Sair");
 		int escolha = sc.nextInt(); sc.nextLine();
+		int op, op_id = 0;
 		switch(escolha) {
 		case 1:
 			System.out.println("Cadastrando um atendente");
@@ -201,10 +202,20 @@ public class Face {
 		case 7:
 			System.out.println("Atualizando o atendente");
 			program.listar("atendente");
+			System.out.println("Selecione um atendente: ");
+			op_id = sc.nextInt(); sc.nextLine();
+			System.out.println("Atualizar:\n1-Nome // 2- Status // 3- Turno // 4- Login // 5- Senha");
+			op = sc.nextInt(); sc.nextLine();
+			program.atualizarAtendente(op_id, op);
 			return true;
 		case 8:
 			System.out.println("Atualizando a categoria");
 			program.listar("categoria");
+			System.out.println("Selecione uma categoria: ");
+			op_id = sc.nextInt(); sc.nextLine();
+			System.out.println("Atualizar:\n1- Nome // 2- Descricao");
+			op = sc.nextInt(); sc.nextLine();
+			program.atualizarCategoria(op_id, op);
 			return true;
 		case 9:
 			System.out.println("Atualizando o ingrediente");

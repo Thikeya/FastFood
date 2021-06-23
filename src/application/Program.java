@@ -319,12 +319,53 @@ public class Program {
 		}
 	}
 	
-	public void atualizarAtendente() {
-		
+	public void atualizarAtendente(int op_ate, int op) {
+		Atendente atend = new Atendente();
+		atend = atendenteDao.findById(op_ate);
+		if(op==1) {
+			System.out.println("Informe o novo nome: ");
+			String novo_nome = sc.nextLine();
+			atend.setNome(novo_nome);
+			atendenteDao.updateNome(atend);
+		}else if(op==2) {
+			System.out.println("Informe o novo status: ");
+			String novo_status = sc.nextLine();
+			atend.setStatus(novo_status);
+			atendenteDao.updateStatus(atend);
+		}
+		else if(op==3) {
+			System.out.println("Informe o novo turno: ");
+			String novo_turno = sc.nextLine();
+			atend.setTurno(novo_turno);
+			atendenteDao.updateTurno(atend);
+		}
+		else if(op==4) {
+			System.out.println("Informe o novo login: ");
+			String novo_login = sc.nextLine();
+			atend.setLogin(novo_login);
+			atendenteDao.updateLogin(atend);
+		}
+		else if(op==5) {
+			System.out.println("Informe o novo senha: ");
+			String novo_senha = sc.nextLine();
+			atend.setSenha(novo_senha);
+			atendenteDao.updateSenha(atend);
+		}
 	}
 	
-	public void atualizarCategoria() {
-		
+	public void atualizarCategoria(int op_id, int op) {
+		Categoria cat = new Categoria();
+		cat = categoriaDao.findById(op_id);
+		if(op==1) {
+			System.out.println("Informe o novo nome: ");
+			String novo_nome = sc.nextLine();
+			cat.setNome(novo_nome);
+		}else if(op==2) {
+			System.out.println("Informe a nova descricao: ");
+			String novo_descricao = sc.nextLine();
+			cat.setDescricao(novo_descricao);
+		}
+		categoriaDao.update(cat);
 	}
 	
 	public void atualizarIngrediente() {

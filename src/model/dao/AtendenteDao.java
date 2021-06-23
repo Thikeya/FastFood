@@ -6,7 +6,11 @@ import model.entities.Atendente;
 
 public interface AtendenteDao {
 	boolean insert(Atendente obj);
-	void update(Atendente obj);
+	void updateNome(Atendente obj);
+	void updateTurno(Atendente obj);
+	void updateStatus(Atendente obj);
+	void updateLogin(Atendente obj);
+	void updateSenha(Atendente obj);
 	void deleteById(Integer id);
 	Atendente findById(Integer id);
 	List<Atendente> findAll();
