@@ -61,9 +61,39 @@ public class CategoriaDaoJDBC implements CategoriaDao{
 	}
 
 	@Override
-	public void update(Categoria obj) {
-		// TODO Auto-generated method stub
-		
+	public void updateNome(Categoria obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE categoria SET nome = ? WHERE categoria_id = ?");
+			st.setString(1, obj.getNome());
+			st.setInt(2, obj.getCategoria_id());
+			st.executeUpdate();
+			System.out.println("Nome alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+	
+	@Override
+	public void updateDescricao(Categoria obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE categoria SET descricao = ? WHERE categoria_id = ?");
+			st.setString(1, obj.getDescricao());
+			st.setInt(2, obj.getCategoria_id());
+			st.executeUpdate();
+			System.out.println("Descricao alterada com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

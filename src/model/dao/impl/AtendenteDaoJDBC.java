@@ -69,6 +69,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st = conn.prepareStatement("UPDATE atendente SET nome = ? WHERE atendente_id = ?");
 			st.setString(1, obj.getNome());
 			st.setInt(2, obj.getAtendente_id());
+			System.out.println("Nome alterado com sucesso");
 			st.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -86,6 +87,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st.setString(1, obj.getStatus());
 			st.setInt(2, obj.getAtendente_id());
 			st.executeUpdate();
+			System.out.println("Status alterado com sucesso");
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
@@ -102,6 +104,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st.setString(1, obj.getLogin());
 			st.setInt(2, obj.getAtendente_id());
 			st.executeUpdate();
+			System.out.println("Login alterado com sucesso");
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
@@ -118,6 +121,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st.setString(1, obj.getTurno());
 			st.setInt(2, obj.getAtendente_id());
 			st.executeUpdate();
+			System.out.println("Turno alterado com sucesso");
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
@@ -134,6 +138,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st.setString(1, obj.getSenha());
 			st.setInt(2, obj.getAtendente_id());
 			st.executeUpdate();
+			System.out.println("Senha alterada com sucesso");
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());

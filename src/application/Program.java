@@ -360,32 +360,33 @@ public class Program {
 			System.out.println("Informe o novo nome: ");
 			String novo_nome = sc.nextLine();
 			cat.setNome(novo_nome);
+			categoriaDao.updateNome(cat);
 		}else if(op==2) {
 			System.out.println("Informe a nova descricao: ");
 			String novo_descricao = sc.nextLine();
 			cat.setDescricao(novo_descricao);
+			categoriaDao.updateDescricao(cat);
 		}
-		categoriaDao.update(cat);
 	}
 	
-	public void atualizarIngrediente() {
-		
+	public void atualizarIngrediente(int op_id, int op) {
+		Ingrediente ing = new Ingrediente();
+		ing = ingredienteDao.findById(op_id);
 	}
 	
-	public void atualizarProduto() {
-		
+	public void atualizarProduto(int op_id, int op) {
+		Produto prod = new Produto();
+		prod = produtoDao.findById(op_id);
 	}
 	
-	public void atualizarPromocao() {
-		
+	public void atualizarPromocao(int op_id, int op) {
+		Promocao promo = new Promocao();
+		promo = promocaoDao.findById(op_id);
 	}
 	
-	public void atualizarProdutoIngrediente() {
-		
-	}
-	
-	public void atualizarProdutoCategoria() {
-		
+	public void atualizarProdutoIngrediente(int op_id, int op) {
+		Ing_Prod ip = new Ing_Prod();
+		ip = ing_prodDao.findById(op_id);
 	}
 	
 	public void listar(String escolha) {
