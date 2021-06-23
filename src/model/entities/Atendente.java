@@ -93,8 +93,7 @@ public class Atendente {
 
 	@Override
 	public String toString() {
-		return "Atendente [atendente_id=" + atendente_id + ", nome=" + nome + ", turno=" + turno + ", status=" + status
-				+ "]";
+		return "\nID do atendente: " + atendente_id + ", Nome: " + nome + ", Turno: " + turno + ", Status:" + status;
 	}
 
 	public Atendente() {

@@ -1,14 +1,12 @@
 package model.entities;
 
-import java.sql.Date;
-
 public class Produto {
 	
 	private int produto_id;
 	private String nome;
 	private double valor;
 	private String descricao;
-	private Date dataProducao;
+	private String dataProducao;
 	private int qtdEstoque;
 	
 	private Categoria categoria;
@@ -53,11 +51,11 @@ public class Produto {
 		this.descricao = descricao;
 	}
 	
-	public Date getDataProducao() {
+	public String getDataProducao() {
 		return dataProducao;
 	}
 	
-	public void setDataProducao(Date dataProducao) {
+	public void setDataProducao(String dataProducao) {
 		this.dataProducao = dataProducao;
 	}
 	
@@ -94,7 +92,7 @@ public class Produto {
 	
 	@Override
 	public String toString() {
-		return "\nCodigo do produto:" + produto_id + ", Nome:" + nome + ", Preco:" + valor + ", Descricao:" + descricao + ", Data de Fabricacao:" + dataProducao + ", Quantidade em estoque:" + qtdEstoque + ", Codigo da categoria:" + categoria.getCategoria_id();
+		return "\nID do produto: " + produto_id + ", Nome: " + nome + ", Preco: " + valor + ", Descricao: " + descricao + ", Data de fabricacao: " + dataProducao + ", Quantidade em estoque: " + qtdEstoque + ", Codigo da categoria: " + categoria.getCategoria_id();
 	}
 
 	public Produto() {

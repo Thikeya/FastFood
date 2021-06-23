@@ -157,9 +157,35 @@ public class Face {
 			return true;
 		case 4:
 			System.out.println("Cadastrando um produto");
+			System.out.println("Informe o nome");
+			String nome_produto = sc.nextLine();
+			System.out.println("Informe o valor");
+			double valor_produto = sc.nextDouble(); sc.nextLine();
+			System.out.println("Informe o descricao");
+			String descricao_produto = sc.nextLine();
+			System.out.println("Informe o quantidade");
+			int quantidade_produto = sc.nextInt(); sc.nextLine();
+			System.out.println("Informe o data de fabricacao");
+			String fabricacao_produto = sc.nextLine();
+			program.exibirCategorias();
+			System.out.println("Informe o ID da categoria");
+			int categoria_produto = sc.nextInt(); sc.nextLine();
+			program.cadastrarProduto(nome_produto, valor_produto, descricao_produto, quantidade_produto, fabricacao_produto, categoria_produto);
 			return true;
 		case 5:
 			System.out.println("Cadastrando uma promocao");
+			System.out.println("Informe o tipo: ");
+			String tipo_promocao = sc.nextLine();
+			System.out.println("Informe a validade: ");
+			String validade_promocao = sc.nextLine();
+			System.out.println("Informe o preco: ");
+			double valor_promocao = sc.nextDouble(); sc.nextLine();
+			System.out.println("Informe a descricao: ");
+			String descricao_promocao = sc.nextLine();
+			program.exibirProdutos();
+			System.out.println("Informe o ID do produto: ");
+			int produto_promocao = sc.nextInt(); sc.nextLine();
+			program.cadastrarPromocao(tipo_promocao, validade_promocao, valor_promocao, descricao_promocao, produto_promocao);
 			return true;
 		case 6:
 			System.out.println("Vinculando produto com ingrediente");

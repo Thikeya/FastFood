@@ -1,7 +1,5 @@
 package model.entities;
 
-import java.sql.Date;
-
 public class Ingrediente {
 	private int ingrediente_id;
 	private String nome;
@@ -83,8 +81,8 @@ public class Ingrediente {
 	
 	@Override
 	public String toString() {
-		return "\ningrediente_id=" + ingrediente_id + ", nome=" + nome + ", unidadeMedida=" + unidadeMedida
-				+ ", validade=" + validade + ", valorPorcao=" + valorPorcao + ", qtdeEstoque=" + qtdeEstoque;
+		return "\nID do ingrediente:" + ingrediente_id + ", Nome: " + nome + ", Unidade de medida: " + unidadeMedida + ", Validade: " + validade
+				+ ", Valor da porcao: " + valorPorcao + ", Quantidade em estoque: " + qtdeEstoque;
 	}
 
 	public Ingrediente() {

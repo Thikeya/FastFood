@@ -32,7 +32,7 @@ public class Ing_Prod {
 
 	@Override
 	public String toString() {
-		return "Ing_Prod [qtdeIng=" + qtdeIng + ", produto=" + produto.getProduto_id() + ", ingrediente=" + ingrediente.getIngrediente_id() + "]";
+		return "ID do produto:" + produto.getProduto_id() + "ID do ingrediente: " + ingrediente.getIngrediente_id() + "Quantidade de ingrediente: " + qtdeIng;
 	}
 
 	public Ing_Prod() {

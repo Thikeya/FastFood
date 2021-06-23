@@ -59,7 +59,7 @@ public class Categoria {
 	
 	@Override
 	public String toString() {
-		return "Categoria [categoria_id=" + categoria_id + ", nome=" + nome + ", descricao=" + descricao + "]";
+		return "\nID da categoria: " + categoria_id + ", Nome:" + nome + ", Descricao:" + descricao;
 	}
 
 	public Categoria() {

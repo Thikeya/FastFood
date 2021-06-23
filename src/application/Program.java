@@ -4,7 +4,6 @@ package application;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 
 import model.dao.AtendenteDao;
@@ -24,6 +23,8 @@ import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
 import model.entities.Pagamento;
 import model.entities.Pedido;
+import model.entities.Produto;
+import model.entities.Promocao;
 
 public class Program {
 	static Scanner sc = new Scanner(System.in);
@@ -256,7 +257,7 @@ public class Program {
 		categoria.setDescricao(descricao);
 		boolean sucesso = categoriaDao.insert(categoria);
 		if(sucesso) {
-			System.out.println("Categoria cadastrado com sucesso");
+			System.out.println("Categoria cadastrada com sucesso");
 		}else {
 			System.out.println("Categoria não foi cadastrado");
 		}
@@ -277,12 +278,35 @@ public class Program {
 		}
 	}
 	
-	public void cadastrarProduto() {
-		
+	public void cadastrarProduto(String nome_produto, double valor_produto, String descricao_produto, int quantidade_produto, String fabricacao_produto, int categoria_produto) {
+		Produto produto = new Produto();
+		produto.setCategoria(categoriaDao.findById(categoria_produto));
+		produto.setDataProducao(fabricacao_produto);
+		produto.setDescricao(descricao_produto);
+		produto.setNome(nome_produto);
+		produto.setQtdEstoque(quantidade_produto);
+		produto.setValor(valor_produto);
+		boolean sucesso = produtoDao.insert(produto);
+		if(sucesso) {
+			System.out.println("Produto cadastrado com sucesso");
+		}else {
+			System.out.println("Produto não foi cadastrado");
+		}
 	}
 	
-	public void cadastrarPromocao() {
-		
+	public void cadastrarPromocao(String tipo_promocao, String validade_promocao, double valor_promocao, String descricao_promocao, int produto_promocao) {
+		Promocao promocao = new Promocao();
+		promocao.setDescricao(descricao_promocao);
+		promocao.setDuracao(validade_promocao);
+		promocao.setPreco(valor_promocao);
+		promocao.setTipo(tipo_promocao);
+		promocao.setProduto(produtoDao.findById(produto_promocao));
+		boolean sucesso = promocaoDao.insert(promocao);
+		if(sucesso) {
+			System.out.println("Promocao cadastrado com sucesso");
+		}else {
+			System.out.println("Promocao não foi cadastrado");
+		}
 	}
 	
 	public void vincularProdutoIngrediente() {
@@ -319,5 +343,13 @@ public class Program {
 	
 	public void atualizarProdutoCategoria() {
 		
+	}
+
+	public void exibirCategorias() {
+		System.out.println(categoriaDao.findAll());
+	}
+
+	public void exibirProdutos() {
+		System.out.println(produtoDao.findAll());
 	}
 }

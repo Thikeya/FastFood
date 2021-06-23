@@ -82,9 +82,11 @@ public class Item_Pedido {
 
 	@Override
 	public String toString() {
-		return "Item_Pedido [item_pedido_id=" + item_pedido_id + ", qtdeProdutos=" + qtdeProdutos
-				+ ", qtdeIngredientes=" + qtdeIngredientes + ", codigo do produto=" + produto + ", codigo do ingrediente=" + ingrediente
-				+ "]";
+		if(qtdeIngredientes==0) {
+			return "ID do item_pedido: " + item_pedido_id + ", ID do produto:" + produto.getProduto_id() + ", Quantidade de produtos: " + qtdeProdutos;
+		}else {
+			return "ID do item_pedido: " + item_pedido_id + ", ID do ingrediente:" + ingrediente.getIngrediente_id() + ", Quantidade de ingredientes: " + qtdeIngredientes;
+		}
 	}
 
 	public Item_Pedido() {

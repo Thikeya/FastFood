@@ -3,7 +3,6 @@ package model.dao;
 import java.util.List;
 
 import model.entities.Ingrediente;
-import model.entities.Produto;
 
 public interface IngredienteDao {
 	boolean insert(Ingrediente obj);

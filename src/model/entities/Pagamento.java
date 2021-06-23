@@ -74,7 +74,7 @@ public class Pagamento {
 
 	@Override
 	public String toString() {
-		return "\nPagamento_id=" + pagamento_id + ", Tipo do pagamento=" + tipoDePag + ", Status=" + status + ", Numero do pedido=" + pedido.getPedido_id();
+		return "\nID do pagamento: " + pagamento_id + ", Tipo do pagamento: " + tipoDePag + ", Status: " + status + ", Numero do pedido:" + pedido.getPedido_id();
 	}
 
 

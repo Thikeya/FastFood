@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
 import db.DbException;
 import model.dao.ProdutoDao;
-import model.entities.Atendente;
 import model.entities.Categoria;
 import model.entities.Produto;
 
@@ -23,9 +23,45 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 	}
 	
 	@Override
-	public void insert(Produto obj) {
-		// TODO Auto-generated method stub
-		
+	public boolean insert(Produto obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"INSERT INTO produto "
+					+ "(nome, valor, descricao, qtd_estoque, data_fabricacao, categoria_id) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, obj.getNome());
+			st.setDouble(2, obj.getValor());
+			st.setString(3, obj.getDescricao());
+			st.setInt(4, obj.getQtdEstoque());
+			st.setString(5, obj.getDataProducao());
+			st.setInt(6, obj.getCategoria().getCategoria_id());
+			
+			int rowsAffected = st.executeUpdate();
+			
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setProduto_id(id);
+					return true;
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Unexpected error! No rows affected!");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		return false;
 	}
 
 	@Override
@@ -55,7 +91,7 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 				prod.setValor(rs.getDouble("valor"));
 				prod.setDescricao(rs.getString("descricao"));
 				prod.setQtdEstoque(rs.getInt("qtd_estoque"));
-				prod.setDataProducao(rs.getDate("data_fabricacao"));
+				prod.setDataProducao(rs.getString("data_fabricacao"));
 				cat.setCategoria_id(rs.getInt("categoria_id"));
 				cat.setNome(rs.getString("nome"));
 				cat.setDescricao(rs.getString("descricao"));
@@ -89,7 +125,7 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 				produto.setValor(rs.getDouble("valor"));
 				produto.setDescricao(rs.getString("descricao"));
 				produto.setQtdEstoque(rs.getInt("qtd_estoque"));
-				produto.setDataProducao(rs.getDate("data_fabricacao"));
+				produto.setDataProducao(rs.getString("data_fabricacao"));
 				categoria.setCategoria_id(rs.getInt("categoria_id"));
 				produto.setCategoria(categoria);
 				list.add(produto);

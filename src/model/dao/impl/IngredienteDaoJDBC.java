@@ -11,9 +11,7 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import model.dao.IngredienteDao;
-import model.entities.Categoria;
 import model.entities.Ingrediente;
-import model.entities.Produto;
 
 public class IngredienteDaoJDBC implements IngredienteDao{
 
@@ -62,7 +60,6 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 			DB.closeStatement(st);
 		}
 		return false;
-		
 	}
 
 	@Override

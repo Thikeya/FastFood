@@ -1,11 +1,9 @@
 package model.entities;
 
-import java.sql.Date;
-
 public class Promocao {
 	private int promocao_id;
 	private String tipo;
-	private Date duracao;
+	private String duracao;
 	private String descricao;
 	private double preco;
 	
@@ -35,11 +33,11 @@ public class Promocao {
 		this.tipo = tipo;
 	}
 	
-	public Date getDuracao() {
+	public String getDuracao() {
 		return duracao;
 	}
 	
-	public void setDuracao(Date duracao) {
+	public void setDuracao(String duracao) {
 		this.duracao = duracao;
 	}
 	
@@ -84,8 +82,8 @@ public class Promocao {
 	
 	@Override
 	public String toString() {
-		return "Promocao [promocao_id=" + promocao_id + ", tipo=" + tipo + ", validade=" + duracao + ", descricao="
-				+ descricao + ", preco=" + preco + ", codigo do produto=" + produto.getProduto_id() + "]";
+		return "\nID da promocao" + promocao_id + ", Tipo: " + tipo + ", Validade: " + duracao + ", Descricao: "
+				+ descricao + ", Preco: " + preco + ", ID do produto: " + produto.getProduto_id();
 	}
 
 	public Promocao() {
