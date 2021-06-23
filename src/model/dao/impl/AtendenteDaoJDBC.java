@@ -22,7 +22,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 	}
 	
 	@Override
-	public void insert(Atendente obj) {
+	public boolean insert(Atendente obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -45,6 +45,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 				if (rs.next()) {
 					int id = rs.getInt(1);
 					obj.setAtendente_id(id);
+					return true;
 				}
 				DB.closeResultSet(rs);
 			}
@@ -58,6 +59,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 		finally {
 			DB.closeStatement(st);
 		}
+		return false;
 	}
 
 	@Override

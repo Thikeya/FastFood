@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,44 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 	}
 	
 	@Override
-	public void insert(Ingrediente obj) {
-		// TODO Auto-generated method stub
+	public boolean insert(Ingrediente obj) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"INSERT INTO ingrediente "
+					+ "(nome, unidade_medida, validade, valor_porcao, qtd_estoque) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, obj.getNome());
+			st.setString(2, obj.getUnidadeMedida());
+			st.setString(3, obj.getValidade());
+			st.setDouble(4, obj.getValorPorcao());
+			st.setInt(5, obj.getQtdeEstoque());
+			
+			int rowsAffected = st.executeUpdate();
+			
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setIngrediente_id(id);
+					return true;
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Unexpected error! No rows affected!");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		return false;
 		
 	}
 
@@ -53,7 +90,7 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 				ing.setIngrediente_id(rs.getInt("ingrediente_id"));
 				ing.setNome(rs.getString("nome"));
 				ing.setUnidadeMedida(rs.getString("unidade_medida"));
-				ing.setValidade(rs.getDate("validade"));
+				ing.setValidade(rs.getString("validade"));
 				ing.setValorPorcao(rs.getDouble("valor_porcao"));
 				ing.setQtdeEstoque(rs.getInt("qtd_estoque"));
 				return ing;
@@ -82,7 +119,7 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 				ingrediente.setIngrediente_id(rs.getInt("ingrediente_id"));
 				ingrediente.setNome(rs.getString("nome"));
 				ingrediente.setUnidadeMedida(rs.getString("unidade_medida"));
-				ingrediente.setValidade(rs.getDate("validade"));
+				ingrediente.setValidade(rs.getString("validade"));
 				ingrediente.setValorPorcao(rs.getDouble("valor_porcao"));
 				ingrediente.setQtdeEstoque(rs.getInt("qtd_estoque"));
 				list.add(ingrediente);

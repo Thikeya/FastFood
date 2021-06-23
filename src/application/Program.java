@@ -1,8 +1,10 @@
 package application;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 import model.dao.AtendenteDao;
@@ -17,13 +19,15 @@ import model.dao.Pedido_ItemDao;
 import model.dao.ProdutoDao;
 import model.dao.PromocaoDao;
 import model.entities.Atendente;
+import model.entities.Categoria;
+import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
 import model.entities.Pagamento;
 import model.entities.Pedido;
 
 public class Program {
 	static Scanner sc = new Scanner(System.in);
-	static String timeStamp = new SimpleDateFormat("yyyy/MM/dd - HH:mm:ss").format(Calendar.getInstance().getTime());
+	static String timeStamp = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss").format(Calendar.getInstance().getTime());
 	static AtendenteDao atendenteDao = DaoFactory.createAtendenteDao();
 	static CategoriaDao categoriaDao = DaoFactory.createCategoriaDao();
 	static Ing_ProdDao ing_prodDao = DaoFactory.createIng_ProdDao();
@@ -229,5 +233,91 @@ public class Program {
 			}
 		}
 		return false;
+	}
+	
+	public void cadastrarAtendente(String nome, String status, String turno, String login, String senha) {
+		Atendente atendente = new Atendente();
+		atendente.setNome(nome);
+		atendente.setStatus(status);
+		atendente.setTurno(turno);
+		atendente.setSenha(senha);
+		atendente.setLogin(login);
+		boolean sucesso = atendenteDao.insert(atendente);
+		if(sucesso) {
+			System.out.println("Atendente cadastrado com sucesso");
+		}else {
+			System.out.println("Atendente não foi cadastrado");
+		}
+	}
+	
+	public void cadastrarCategoria(String nome, String descricao) {
+		Categoria categoria = new Categoria();
+		categoria.setNome(nome);
+		categoria.setDescricao(descricao);
+		boolean sucesso = categoriaDao.insert(categoria);
+		if(sucesso) {
+			System.out.println("Categoria cadastrado com sucesso");
+		}else {
+			System.out.println("Categoria não foi cadastrado");
+		}
+	}
+	
+	public void cadastrarIngrediente(String nome, String unidade, String validade, double valor, int quantidade) throws ParseException {
+		Ingrediente ingrediente = new Ingrediente();
+		ingrediente.setNome(nome);
+		ingrediente.setValidade(validade);
+		ingrediente.setUnidadeMedida(unidade);
+		ingrediente.setQtdeEstoque(quantidade);
+		ingrediente.setValorPorcao(valor);
+		boolean sucesso = ingredienteDao.insert(ingrediente);
+		if(sucesso) {
+			System.out.println("Ingrediente cadastrado com sucesso");
+		}else {
+			System.out.println("Ingrediente não foi cadastrado");
+		}
+	}
+	
+	public void cadastrarProduto() {
+		
+	}
+	
+	public void cadastrarPromocao() {
+		
+	}
+	
+	public void vincularProdutoIngrediente() {
+		
+	}
+	
+	public void vincularProdutoCategoria() {
+		
+	}
+	
+	public void atualizarAtendente() {
+		
+	}
+	
+	public void atualizarCategoria() {
+		
+	}
+	
+	public void atualizarIngrediente() {
+		
+	}
+	
+	public void atualizarProduto() {
+		
+	}
+	
+	public void atualizarPromocao() {
+		
+	}
+	
+	public void atualizarProdutoIngrediente() {
+		
+	}
+	
+	public void atualizarProdutoCategoria() {
+		
 	}
 }

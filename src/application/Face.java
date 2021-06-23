@@ -1,13 +1,15 @@
 package application;
 
 import java.util.Scanner;
+import java.text.ParseException;
+import java.util.Date;
 
 import model.entities.Pedido;
 
 public class Face {
 	static Scanner sc = new Scanner(System.in);
 	static Program program = new Program();
-	public static void main(String args[]) {
+	public static void main(String args[]) throws ParseException {
 		int pedido, mtd_pagamento, pagamento, menu = 0;
 		String num;
 		while(menu == 0) {
@@ -99,61 +101,92 @@ public class Face {
 		}
 	}
 	
-	public static boolean listaAdministrador() {
+	public static boolean listaAdministrador() throws ParseException {
 		System.out.println("1- Cadastrar um atendente");
 		System.out.println("2- Cadastrar uma categoria");
 		System.out.println("3- Cadastrar um ingrediente");
 		System.out.println("4- Cadastrar um produto");
 		System.out.println("5- Cadastrar uma promocao");
-		System.out.println("6- Cadastrar uma categoria");
-		System.out.println("7- Vincular produto <-> ingrediente");
+		System.out.println("6- Vincular produto <-> ingrediente");
+		System.out.println("7- Vincular produto -> categoria");
 		System.out.println("8- Atualizar um atendente");
 		System.out.println("9- Atualizar uma categoria");
 		System.out.println("10- Atualizar um ingrediente");
 		System.out.println("11- Atualizar um produto");
 		System.out.println("12- Atualizar uma promocao");
-		System.out.println("13- Atualizar uma categoria");
-		System.out.println("14- Atualzar produto <-> ingrediente");
+		System.out.println("13- Atualzar produto <-> ingrediente");
+		System.out.println("14- Atualizar produto -> categoria");
 		System.out.println("15- Sair");
-		int escolha = sc.nextInt();
+		int escolha = sc.nextInt(); sc.nextLine();
 		switch(escolha) {
 		case 1:
+			System.out.println("Cadastrando um atendente");
 			System.out.println("Informe o nome: ");
-			String nome = sc.nextLine();
+			String nome_atendente = sc.nextLine();
 			System.out.println("Informe o status: ");
-			String status = sc.nextLine();
+			String status_atendente = sc.nextLine();
 			System.out.println("Informe o turno: ");
-			String turno = sc.nextLine()
+			String turno_atendente = sc.nextLine();
 			System.out.println("Informe o login: ");
-			String login = sc.nextLine();
+			String login_atendente = sc.nextLine();
 			System.out.println("Informe a senha: ");
-			String senha = sc.nextLine();
+			String senha_atendente = sc.nextLine();
+			program.cadastrarAtendente(nome_atendente, status_atendente, turno_atendente, login_atendente, senha_atendente);
 			return true;
 		case 2:
+			System.out.println("Cadastrando uma categoria");
+			System.out.println("Informe o nome: ");
+			String nome_categoria = sc.nextLine();
+			System.out.println("Informe a descricao: ");
+			String descricao_categoria = sc.nextLine();
+			program.cadastrarCategoria(nome_categoria, descricao_categoria);
 			return true;
 		case 3:
+			System.out.println("Cadastrando um ingrediente");
+			System.out.println("Informe o nome: ");
+			String nome_ingrediente = sc.nextLine();
+			System.out.println("Informe a unidade de medida: ");
+			String unidade_ingrediente = sc.nextLine();
+			System.out.println("Informe a validade: ");
+			String validade_ingrediente = sc.nextLine();
+			System.out.println("Informe o valor unitario: ");
+			double valor_ingrediente = sc.nextDouble(); sc.nextLine();
+			System.out.println("Informe a quantidade: ");
+			int quantidade_ingrediente = sc.nextInt(); sc.nextLine();
+			program.cadastrarIngrediente(nome_ingrediente, unidade_ingrediente, validade_ingrediente, valor_ingrediente, quantidade_ingrediente);
 			return true;
 		case 4:
+			System.out.println("Cadastrando um produto");
 			return true;
 		case 5:
+			System.out.println("Cadastrando uma promocao");
 			return true;
 		case 6:
+			System.out.println("Vinculando produto com ingrediente");
 			return true;
 		case 7:
+			System.out.println("Vinculando produto com categoria");
 			return true;
 		case 8:
+			System.out.println("Atualizando o atendente");
 			return true;
 		case 9:
+			System.out.println("Atualizando a categoria");
 			return true;
 		case 10:
+			System.out.println("Atualizando o ingrediente");
 			return true;
 		case 11:
+			System.out.println("Atualizando o produto");
 			return true;
 		case 12:
+			System.out.println("Atualizando a promocao");
 			return true;
 		case 13:
+			System.out.println("Atualizando produto <-> ingrediente");
 			return true;
 		case 14:
+			System.out.println("Atualizando produto <-> categoria");
 			return true;
 		case 15:
 			return false;

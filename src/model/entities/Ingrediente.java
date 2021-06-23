@@ -6,7 +6,7 @@ public class Ingrediente {
 	private int ingrediente_id;
 	private String nome;
 	private String unidadeMedida;
-	private Date validade;
+	private String validade;
 	private double valorPorcao;
 	private int qtdeEstoque;
 	
@@ -34,12 +34,12 @@ public class Ingrediente {
 		this.unidadeMedida = unidadeMedida;
 	}
 	
-	public Date getValidade() {
+	public String getValidade() {
 		return validade;
 	}
 	
-	public void setValidade(Date validade) {
-		this.validade = validade;
+	public void setValidade(String date) {
+		this.validade = date;
 	}
 	
 	public double getValorPorcao() {

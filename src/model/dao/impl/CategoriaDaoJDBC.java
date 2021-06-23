@@ -23,7 +23,7 @@ public class CategoriaDaoJDBC implements CategoriaDao{
 	}
 	
 	@Override
-	public void insert(Categoria obj) {
+	public boolean insert(Categoria obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -43,6 +43,7 @@ public class CategoriaDaoJDBC implements CategoriaDao{
 				if (rs.next()) {
 					int id = rs.getInt(1);
 					obj.setCategoria_id(id);
+					return true;
 				}
 				DB.closeResultSet(rs);
 			}
@@ -56,7 +57,7 @@ public class CategoriaDaoJDBC implements CategoriaDao{
 		finally {
 			DB.closeStatement(st);
 		}
-		
+		return false;
 	}
 
 	@Override
