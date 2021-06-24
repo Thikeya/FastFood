@@ -372,6 +372,40 @@ public class Program {
 	public void atualizarIngrediente(int op_id, int op) {
 		Ingrediente ing = new Ingrediente();
 		ing = ingredienteDao.findById(op_id);
+		if(op==1) {
+			System.out.println("Informe o novo nome: ");
+			String novo_nome = sc.nextLine();
+			ing.setNome(novo_nome);
+			ingredienteDao.updateNome(ing);
+		}else if(op==2) {
+			System.out.println("Informe a nova unidade de medida: ");
+			String novo_unidade = sc.nextLine();
+			ing.setUnidadeMedida(novo_unidade);
+			ingredienteDao.updateUnidade(ing);
+		}else if(op==3) {
+			System.out.println("Informe a nova validade: ");
+			String novo_validade = sc.nextLine();
+			ing.setValidade(novo_validade);
+			ingredienteDao.updateValidade(ing);
+		}else if(op==4) {
+			System.out.println("Informe o novo valor da porcao: ");
+			double novo_valor = sc.nextDouble(); sc.nextLine();
+			ing.setValorPorcao(novo_valor);
+			ingredienteDao.updateValor(ing);
+		}else if(op==5) {
+			System.out.println("Deseja:\n1- Aumentar a quantidade atual // 2- Substituir a quantidade atual");
+			int qtd_op = sc.nextInt(); sc.nextLine(); 
+			int novo_quantidade = 0;
+			if(qtd_op==1) {
+				System.out.println("Informe a quantidade a ser adicionada: ");
+				novo_quantidade = sc.nextInt(); sc.nextLine();
+			}else if(qtd_op==2) {
+				System.out.println("Informe a nova quantidade em estoque: ");
+				novo_quantidade = sc.nextInt(); sc.nextLine();
+				ing.setQtdeEstoque(novo_quantidade);
+			}
+			ingredienteDao.updateQuantidade(ing, qtd_op, novo_quantidade);
+		}
 	}
 	
 	public void atualizarProduto(int op_id, int op) {

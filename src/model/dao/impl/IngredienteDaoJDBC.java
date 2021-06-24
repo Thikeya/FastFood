@@ -65,7 +65,6 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 	@Override
 	public void update(Ingrediente obj) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -141,6 +140,103 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 			st.setInt(1, quantidade);
 			st.setInt(2, ingrediente.getIngrediente_id());
 			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateNome(Ingrediente ing) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE ingrediente SET nome = ? WHERE ingrediente_id = ?");
+			st.setString(1, ing.getNome());
+			st.setInt(2, ing.getIngrediente_id());
+			st.executeUpdate();
+			System.out.println("Nome alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateUnidade(Ingrediente ing) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE ingrediente SET unidade_medida = ? WHERE ingrediente_id = ?");
+			st.setString(1, ing.getUnidadeMedida());
+			st.setInt(2, ing.getIngrediente_id());
+			st.executeUpdate();
+			System.out.println("Unidade medida alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateValidade(Ingrediente ing) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE ingrediente SET validade = ? WHERE ingrediente_id = ?");
+			st.setString(1, ing.getValidade());
+			st.setInt(2, ing.getIngrediente_id());
+			st.executeUpdate();
+			System.out.println("Validade alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateValor(Ingrediente ing) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE ingrediente SET valor_porcao = ? WHERE ingrediente_id = ?");
+			st.setDouble(1, ing.getValorPorcao());
+			st.setInt(2, ing.getIngrediente_id());
+			st.executeUpdate();
+			System.out.println("Valor da porcao alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateQuantidade(Ingrediente ing, int qtd_op, int novo_quantidade) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE ingrediente SET qtd_estoque = ? WHERE ingrediente_id = ?");
+			if(qtd_op==1) {
+				st.setInt(1, ing.getQtdeEstoque()+novo_quantidade);
+				st.setInt(2, ing.getIngrediente_id());
+				st.executeUpdate();
+			}else if(qtd_op==2) {
+				st.setInt(1, ing.getQtdeEstoque());
+				st.setInt(2, ing.getIngrediente_id());
+				st.executeUpdate();
+			}
+			
+			System.out.println("Valor da porcao alterado com sucesso");
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
