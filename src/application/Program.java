@@ -411,6 +411,46 @@ public class Program {
 	public void atualizarProduto(int op_id, int op) {
 		Produto prod = new Produto();
 		prod = produtoDao.findById(op_id);
+		if(op==1) {
+			System.out.println("Informe o novo nome: ");
+			String novo_nome = sc.nextLine();
+			prod.setNome(novo_nome);
+			produtoDao.updateNome(prod);
+		}else if(op==2) {
+			System.out.println("Informe o novo valor: ");
+			double novo_valor = sc.nextDouble(); sc.nextLine();
+			prod.setValor(novo_valor);
+			produtoDao.updateValor(prod);
+		}else if(op==3) {
+			System.out.println("Informe a nova descricao: ");
+			String novo_descricao = sc.nextLine();
+			prod.setDescricao(novo_descricao);
+			produtoDao.updateDescricao(prod);
+		}else if(op==4) {
+			System.out.println("Deseja:\n1- Aumentar a quantidade atual // 2- Substituir a quantidade atual");
+			int qtd_op = sc.nextInt(); sc.nextLine(); 
+			int novo_quantidade = 0;
+			if(qtd_op==1) {
+				System.out.println("Informe a quantidade a ser adicionada: ");
+				novo_quantidade = sc.nextInt(); sc.nextLine();
+			}else if(qtd_op==2) {
+				System.out.println("Informe a nova quantidade em estoque: ");
+				novo_quantidade = sc.nextInt(); sc.nextLine();
+				prod.setQtdEstoque(novo_quantidade);
+			}
+			produtoDao.updateQuantidade(prod, qtd_op, novo_quantidade);
+		}else if(op==5) {
+			System.out.println("Informe a nova data de fabricacao: ");
+			String novo_validade = sc.nextLine();
+			prod.setDataProducao(novo_validade);
+			produtoDao.updateFabricacao(prod);
+		}else if(op==6) {
+			listar("categoria");
+			System.out.println("Informe a nova categoria: ");
+			int categoria_op = sc.nextInt();sc.nextLine();
+			prod.setCategoria(categoriaDao.findById(categoria_op));
+			produtoDao.updateCategoria(prod);
+		}
 	}
 	
 	public void atualizarPromocao(int op_id, int op) {
@@ -423,7 +463,7 @@ public class Program {
 		ip = ing_prodDao.findById(op_id);
 	}
 	
-	public void listar(String escolha) {
+	public static void listar(String escolha) {
 		switch(escolha) {
 			case "categoria":
 				System.out.println(categoriaDao.findAll());

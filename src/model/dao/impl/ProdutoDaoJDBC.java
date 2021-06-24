@@ -158,4 +158,119 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 			DB.closeStatement(st);
 		}
 	}
+
+	@Override
+	public void updateQuantidade(Produto prod, int qtd_op, int novo_quantidade) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE produto SET qtd_estoque = ? WHERE produto_id = ?");
+			if(qtd_op==1) {
+				st.setInt(1, prod.getQtdEstoque()+novo_quantidade);
+				st.setInt(2, prod.getProduto_id());
+				st.executeUpdate();
+			}else if(qtd_op==2) {
+				st.setInt(1, prod.getQtdEstoque());
+				st.setInt(2, prod.getProduto_id());
+				st.executeUpdate();
+			}
+			
+			System.out.println("Quantidade alterada com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateCategoria(Produto prod) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE produto SET categoria_id = ? WHERE produto_id = ?");
+			st.setInt(1, prod.getCategoria().getCategoria_id());
+			st.setInt(2, prod.getProduto_id());
+			st.executeUpdate();
+			System.out.println("Categoria alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateFabricacao(Produto prod) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE produto SET data_fabricacao = ? WHERE produto_id = ?");
+			st.setString(1, prod.getDataProducao());
+			st.setInt(2, prod.getProduto_id());
+			st.executeUpdate();
+			System.out.println("Data de fabricacao alterada com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateDescricao(Produto prod) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE produto SET descricao = ? WHERE produto_id = ?");
+			st.setString(1, prod.getDescricao());
+			st.setInt(2, prod.getProduto_id());
+			st.executeUpdate();
+			System.out.println("Descricao alterada com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateValor(Produto prod) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE produto SET valor = ? WHERE produto_id = ?");
+			st.setDouble(1, prod.getValor());
+			st.setInt(2, prod.getProduto_id());
+			st.executeUpdate();
+			System.out.println("Valor alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
+
+	@Override
+	public void updateNome(Produto prod) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE produto SET nome = ? WHERE produto_id = ?");
+			st.setString(1, prod.getNome());
+			st.setInt(2, prod.getProduto_id());
+			st.executeUpdate();
+			System.out.println("Nome alterado com sucesso");
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
 }
