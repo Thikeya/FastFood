@@ -82,7 +82,7 @@ public class Promocao {
 	
 	@Override
 	public String toString() {
-		return "\nID da promocao" + promocao_id + ", Tipo: " + tipo + ", Validade: " + duracao + ", Descricao: "
+		return "\nID da promocao: " + promocao_id + ", Tipo: " + tipo + ", Validade: " + duracao + ", Descricao: "
 				+ descricao + ", Preco: " + preco + ", ID do produto: " + produto.getProduto_id();
 	}
 

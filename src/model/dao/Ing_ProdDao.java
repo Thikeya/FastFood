@@ -8,7 +8,10 @@ public interface Ing_ProdDao {
 	boolean insert(Ing_Prod obj);
 	void update(Ing_Prod obj);
 	void deleteById(Integer id);
+	void atualizaIngredientes(Integer id, int quantidade);
 	Ing_Prod findById(Integer id);
 	List<Ing_Prod> findAll();
-	void atualizaIngredientes(Integer id, int quantidade);
+	void updateIngrediente(Ing_Prod ip);
+	void updateProduto(Ing_Prod ip);
+	void updateQuantidade(Ing_Prod ip);
 }

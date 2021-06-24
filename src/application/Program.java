@@ -491,6 +491,24 @@ public class Program {
 	public void atualizarProdutoIngrediente(int op_id, int op) {
 		Ing_Prod ip = new Ing_Prod();
 		ip = ing_prodDao.findById(op_id);
+		if(op==1) {
+			listar("produto");
+			System.out.println("Informe o novo produto: ");
+			int novo_produto = sc.nextInt(); sc.nextLine();
+			ip.setProduto(produtoDao.findById(novo_produto));
+			ing_prodDao.updateProduto(ip);
+		}else if(op==2) {
+			listar("ingrediente");
+			System.out.println("Informe o novo ingrediente: ");
+			int novo_ingrediente = sc.nextInt(); sc.nextLine();
+			ip.setIngrediente(ingredienteDao.findById(novo_ingrediente));
+			ing_prodDao.updateIngrediente(ip);
+		}else if(op==3){
+			System.out.println("Informe a nova quantidade: ");
+			int novo_quantidade = sc.nextInt(); sc.nextLine();
+			ip.setQtdeIng(novo_quantidade);
+			ing_prodDao.updateQuantidade(ip);
+		}
 	}
 	
 	public static void listar(String escolha) {

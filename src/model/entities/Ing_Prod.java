@@ -1,11 +1,20 @@
 package model.entities;
 
 public class Ing_Prod {
+	private int ing_prod_id;
 	private int qtdeIng;
 	
 	private Produto produto;
 	private Ingrediente ingrediente;
 	
+	public int getIng_prod_id() {
+		return ing_prod_id;
+	}
+
+	public void setIng_prod_id(int ing_prod_id) {
+		this.ing_prod_id = ing_prod_id;
+	}
+
 	public int getQtdeIng() {
 		return qtdeIng;
 	}
@@ -32,7 +41,7 @@ public class Ing_Prod {
 
 	@Override
 	public String toString() {
-		return "ID do produto:" + produto.getProduto_id() + "ID do ingrediente: " + ingrediente.getIngrediente_id() + "Quantidade de ingrediente: " + qtdeIng;
+		return "\nID do produto <-> ingrediente: " + ing_prod_id + ", ID do produto:" + produto.getProduto_id() + ", ID do ingrediente: " + ingrediente.getIngrediente_id() + ", Quantidade de ingrediente: " + qtdeIng;
 	}
 
 	public Ing_Prod() {

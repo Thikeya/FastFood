@@ -197,11 +197,12 @@ public class Atendente {
 		case 12:
 			System.out.println("Atualizando produto <-> ingrediente");
 			program.listar("ing_prod");
-			System.out.println("Selecione um produto <-> ingrediente: ");
+			System.out.println("Selecione o que ira ser alterado: ");
 			op_id = sc.nextInt(); sc.nextLine();
-			System.out.println("Atualizar:\n1- Ingrediente // 2- Quantidade de ingrediente");
+			System.out.println("Atualizar:\n1- Produto // 2-Ingrediente // 3- Quantidade de ingrediente");
 			op = sc.nextInt(); sc.nextLine();
 			program.atualizarProdutoIngrediente(op_id, op);
+			return true;
 		case 13:
 			return false;
 		default:
