@@ -10,4 +10,9 @@ public interface PromocaoDao {
 	void deleteById(Integer id);
 	Promocao findById(Integer id);
 	List<Promocao> findAll();
+	void updateTipo(Promocao promo);
+	void updateValidade(Promocao promo);
+	void updatePreco(Promocao promo);
+	void updateDescricao(Promocao promo);
+	void updateProduto(Promocao promo);
 }

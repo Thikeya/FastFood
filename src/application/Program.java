@@ -456,6 +456,36 @@ public class Program {
 	public void atualizarPromocao(int op_id, int op) {
 		Promocao promo = new Promocao();
 		promo = promocaoDao.findById(op_id);
+		if(op==1) {
+			System.out.println("Informe o novo tipo: ");
+			String novo_tipo = sc.nextLine();
+			promo.setTipo(novo_tipo);
+			promocaoDao.updateTipo(promo);
+		}else if(op==2) {
+			System.out.println("Informe a nova validade: ");
+			String novo_validade = sc.nextLine();
+			promo.setDuracao(novo_validade);
+			promocaoDao.updateValidade(promo);
+		}
+		else if(op==3) {
+			System.out.println("Informe o novo preco: ");
+			double novo_preco = sc.nextDouble(); sc.nextLine();
+			promo.setPreco(novo_preco);
+			promocaoDao.updatePreco(promo);
+		}
+		else if(op==4) {
+			System.out.println("Informe a nova descricao: ");
+			String novo_descricao = sc.nextLine();
+			promo.setDescricao(novo_descricao);
+			promocaoDao.updateDescricao(promo);
+		}
+		else if(op==5) {
+			listar("produto");
+			System.out.println("Informe o novo produto: ");
+			int novo_produto = sc.nextInt(); sc.nextLine();
+			promo.setProduto(produtoDao.findById(novo_produto));
+			promocaoDao.updateProduto(promo);
+		}
 	}
 	
 	public void atualizarProdutoIngrediente(int op_id, int op) {
