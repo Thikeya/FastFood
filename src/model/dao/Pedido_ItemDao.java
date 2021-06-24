@@ -13,4 +13,5 @@ public interface Pedido_ItemDao {
 	Pedido_Item findById(Integer id);
 	List<Pedido_Item> findAll();
 	List<Pedido_Item> carrinho(Integer id);
+	List<Pedido_Item> itensCancelamento(Integer id);
 }

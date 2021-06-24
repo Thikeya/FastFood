@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import model.entities.Atendente;
 
-public class Face {
+public class Main {
 	static Scanner sc = new Scanner(System.in);
 	static Program program = new Program();
 	public static void main(String args[]) throws ParseException {
@@ -51,7 +51,11 @@ public class Face {
 					System.out.println("Pedido sem itens adicionados");
 				}
 			}else if(resposta.equals("2")) {
-				
+				System.out.println("Informe o nº do seu pedido: ");
+				int numeroCancelamento = sc.nextInt(); sc.nextLine();
+				System.out.println("Informe o seu nome: ");
+				String nomeCancelamento = sc.nextLine();
+				program.cancelarPedido(numeroCancelamento, nomeCancelamento);
 			}else if(resposta.equals("funcionario")) {
 				System.out.println("=== Login === ");
 				System.out.println("Insira seu login: ");
@@ -74,7 +78,7 @@ public class Face {
 						processeguir = atendente.listaAdministrador();
 					}
 				}else {
-					System.out.println("Login não efetuado");
+					System.out.println("Login não efetuado\n");
 				}
 			}
 		}

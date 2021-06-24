@@ -46,7 +46,7 @@ public class Program {
 		pedido.setAtendente(atendenteDao.findById(1));
 		pedido.setDescricao(nomeCliente);
 		pedido.setHorarioPedido(timeStamp);
-		pedido.setStatusPedido("a espera");
+		pedido.setStatusPedido("Na fila");
 		int id_pedido = pedidoDao.insert(pedido);
 		int con = 1;
 		while(con == 1) {
@@ -177,7 +177,8 @@ public class Program {
 	public int verificaFuncionario(String login, String senha) {
 		Atendente atendende = new Atendente();
 		atendende = atendenteDao.findLogin(login, senha);
-		if(atendende.getLogin().equals("admin") && atendende.getSenha().equals("admin")) {
+		if(atendende==null) {
+		}else if(atendende.getLogin().equals("admin") && atendende.getSenha().equals("admin")) {
 			return 2;
 		}else if(atendende!=null) {
 			return 1;
@@ -212,16 +213,22 @@ public class Program {
 		}
 	}
 	
-	public void alterarStatusPedido(int numPedido) {
+	public void alterarStatusPedido(int numPedido, int op) {
 		Pedido pedido = new Pedido();
 		pedido = pedidoDao.findById(numPedido);
-		if(!pedido.getStatusPedido().equals("finalizado")) {
-			System.out.println("Informe o novo status:");
-			String novoStatus = sc.nextLine();
-			pedidoDao.updateStatus(pedido, novoStatus);
+		if(!pedido.getStatusPedido().equals("Na fila") && op==1) {
+			pedido.setStatusPedido("Em andamento");
+			pedidoDao.update(pedido);
+		}else if(pedido.getStatusPedido().equals("Em andamento") && op==2) {
+			pedido.setStatusPedido("Finalizado");
+			pedidoDao.update(pedido);
 		}else {
 			System.out.println("Nao foi possivel alterar o status");
 		}
+	}
+	
+	public void cancelarPedidoAtendente() {
+		
 	}
 	
 	public boolean verificarAdmin(String login, String senha) {
@@ -511,7 +518,7 @@ public class Program {
 		}
 	}
 	
-	public static void listar(String escolha) {
+	public void listar(String escolha) {
 		switch(escolha) {
 			case "categoria":
 				System.out.println(categoriaDao.findAll());
@@ -543,8 +550,26 @@ public class Program {
 			case "promocao":
 				System.out.println(promocaoDao.findAll());
 				break;
+			case "cancelamento":
+				System.out.println("insira o codigo");
+				break;
 			default:
 				break;
 		}
+	}
+
+	public void cancelarPedido(int numeroCancelamento, String nomeCancelamento) {
+		Pedido pedido = new Pedido();
+		pedido = pedidoDao.findById(numeroCancelamento);
+		if(pedido.getDescricao().equals(nomeCancelamento)) {
+			pedido.setStatusPedido("Cancelamento pendente");
+			pedidoDao.updateStatus(pedido);
+		}else {
+			System.out.println("Pedido e Nome não conferem");
+		}
+	}
+	
+	public void aprovarCancelamento(int numeroPedido) {
+		System.out.println(pedido_itemDao.itensCancelamento(numeroPedido));
 	}
 }

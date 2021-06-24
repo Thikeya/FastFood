@@ -166,4 +166,58 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 			DB.closeResultSet(rs);
 		}
 	}
+	
+	public List<Pedido_Item> itensCancelamento(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("select pedido.pedido_id, pedido.hora_pedido, item_pedido.item_pedido_id, ingrediente.nome, item_pedido.qtd_ingrediente, item_pedido.status FROM item_pedido INNER JOIN ingrediente INNER JOIN pedido_item INNER JOIN pedido ON item_pedido.ingrediente_id = ingrediente.ingrediente_id AND item_pedido.item_pedido_id = pedido_item.item_pedido_id AND pedido_item.pedido_id = ? AND pedido.pedido_id = pedido_item.pedido_id AND item_pedido.qtd_ingrediente>0");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			List<Pedido_Item> list = new ArrayList<>();
+			while (rs.next()) {
+				Pedido_Item pedido_Item = new Pedido_Item();
+				Pedido pedido = new Pedido();
+				Item_Pedido item_pedido = new Item_Pedido();
+				Ingrediente ingrediente = new Ingrediente();
+				pedido.setPedido_id(rs.getInt("pedido_id"));
+				pedido.setHorarioPedido(rs.getString("hora_pedido"));
+				ingrediente.setNome(rs.getString("nome"));
+				item_pedido.setItem_pedido_id(rs.getInt("item_pedido_id"));
+				item_pedido.setIngrediente(ingrediente);
+				item_pedido.setQtdeIngredientes(rs.getInt("qtd_ingrediente"));
+				item_pedido.setStatus(rs.getString("status"));
+				pedido_Item.setItem_pedido(item_pedido);
+				pedido_Item.setPedido(pedido);
+				list.add(pedido_Item);
+			}
+			st = conn.prepareStatement("select pedido.pedido_id, pedido.hora_pedido, item_pedido.item_pedido_id, produto.nome, item_pedido.qtd_produto, item_pedido.status FROM item_pedido INNER JOIN produto INNER JOIN pedido_item INNER JOIN pedido ON item_pedido.produto_id = produto.produto_id AND item_pedido.item_pedido_id = pedido_item.item_pedido_id AND pedido_item.pedido_id = ? AND pedido.pedido_id = pedido_item.pedido_id AND item_pedido.qtd_produto>0");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				Pedido_Item pedido_Item = new Pedido_Item();
+				Pedido pedido = new Pedido();
+				Item_Pedido item_pedido = new Item_Pedido();
+				Produto produto = new Produto();
+				pedido.setPedido_id(rs.getInt("pedido_id"));
+				pedido.setHorarioPedido(rs.getString("hora_pedido"));
+				produto.setNome(rs.getString("nome"));
+				item_pedido.setItem_pedido_id(rs.getInt("item_pedido_id"));
+				item_pedido.setProduto(produto);
+				item_pedido.setQtdeProdutos(rs.getInt("qtd_produto"));
+				item_pedido.setStatus(rs.getString("status"));
+				pedido_Item.setItem_pedido(item_pedido);
+				pedido_Item.setPedido(pedido);
+				list.add(pedido_Item);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 }

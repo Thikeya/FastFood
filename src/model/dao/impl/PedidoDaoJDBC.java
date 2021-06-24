@@ -87,13 +87,13 @@ public class PedidoDaoJDBC implements PedidoDao {
 		}
 	}
 	
-	public void updateStatus(Pedido obj, String status) {
+	public void updateStatus(Pedido obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
 					"UPDATE pedido SET status_pedido = ? WHERE pedido_id = ?");
 			
-			st.setString(1, status);
+			st.setString(1, obj.getStatusPedido());
 			st.setInt(2, obj.getPedido_id());
 			st.executeUpdate();
 			System.out.println("Status atualizado");

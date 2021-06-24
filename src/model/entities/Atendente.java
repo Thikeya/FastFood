@@ -29,30 +29,42 @@ public class Atendente {
 		this.nome = nome;
 	}
 	
-	public static boolean listaAtendente (int funcionario) {
+	public boolean listaAtendente (int funcionario) {
 		System.out.println("Selecione uma opcao: ");
 		System.out.println("1- Vincular-se a um pedido");
 		System.out.println("2- Alterar status do pedido");
-		System.out.println("3- Sair");
+		System.out.println("3- Autorizar cancelamento");
 		int escolha = sc.nextInt(); sc.nextLine();
 		int numPedido = 0;
 		if(escolha == 1) {
+			System.out.println("Vinculando a um pedido");
 			program.listar("pedido");
 			System.out.println("Escolha o nº do pedido:");
 			numPedido = sc.nextInt(); sc.nextLine();
 			program.vincularPedido(numPedido, funcionario);
 			return true;
 		}else if(escolha == 2) {
+			System.out.println("Alterando o status");
 			program.listar("pedido");
+			System.out.println("Informe o nº do pedido");
 			numPedido = sc.nextInt(); sc.nextLine();
+			System.out.println("Deseja alterar para qual estado?\n1- Em andamento // 2- Finalizado");
+			int opStatus = sc.nextInt();sc.nextLine();
+			program.alterarStatusPedido(numPedido, opStatus);
 			return true;
-		}else {
+		}else if(escolha == 3) {
+			System.out.println("Informe o nº do pedido");
+			numPedido = sc.nextInt(); sc.nextLine();
+			program.aprovarCancelamento(numPedido);
+			return true;
+		}
+		else {
 			System.out.println("Saindo...");
 			return false;
 		}
 	}
 	
-	public static boolean listaAdministrador() throws ParseException {
+	public boolean listaAdministrador() throws ParseException {
 		System.out.println("1- Cadastrar um atendente");
 		System.out.println("2- Cadastrar uma categoria");
 		System.out.println("3- Cadastrar um ingrediente");
