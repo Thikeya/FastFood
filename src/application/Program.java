@@ -573,7 +573,7 @@ public class Program {
 		Pedido pedido = new Pedido();
 		pedido = pedidoDao.findById(numeroPedido);
 		System.out.println("ID do Pedido: " + numeroPedido);
-		System.out.println("Hora do pedido" + pedido.getHorarioPedido());
+		System.out.println("Hora do pedido: " + pedido.getHorarioPedido());
 		System.out.println(pedido_itemDao.itensCancelamento(numeroPedido));
 		System.out.println("Confirmar cancelamento:\n1- Sim // 2- Nao");
 		int resp = sc.nextInt(); sc.nextLine();
