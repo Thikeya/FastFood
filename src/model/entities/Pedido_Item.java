@@ -19,13 +19,15 @@ public class Pedido_Item {
 	@Override
 	public String toString() {
 		if(item_pedido.getIngrediente() != null) {
-			return "\nID do item_pedido: " + item_pedido.getItem_pedido_id() 
+			return "ID do item_pedido: " + item_pedido.getItem_pedido_id() 
 			+ ", Nome: " + item_pedido.getIngrediente().getNome()
-			+ ", Quantidade adicionada: " + item_pedido.getQtdeIngredientes() + "\n";
+			+ ", Quantidade adicionada: " + item_pedido.getQtdeIngredientes() 
+			+ ", Status: " + item_pedido.getStatus() + "\n"; 
 		}else if(item_pedido.getProduto() != null) {
 			return "\nID do item_pedido:" + item_pedido.getItem_pedido_id() 
 			+ ", Nome: " + item_pedido.getProduto().getNome()
-			+ ", Quantidade adicionada: " + item_pedido.getQtdeProdutos() + "\n";
+			+ ", Quantidade adicionada: " + item_pedido.getQtdeProdutos() 
+			+ ", Status: " + item_pedido.getStatus() + "\n"; 
 		}else {
 			return null;
 		}

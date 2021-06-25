@@ -3,7 +3,9 @@ package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 
 import model.dao.AtendenteDao;
@@ -24,6 +26,7 @@ import model.entities.Ingrediente;
 import model.entities.Item_Pedido;
 import model.entities.Pagamento;
 import model.entities.Pedido;
+import model.entities.Pedido_Item;
 import model.entities.Produto;
 import model.entities.Promocao;
 
@@ -550,9 +553,6 @@ public class Program {
 			case "promocao":
 				System.out.println(promocaoDao.findAll());
 				break;
-			case "cancelamento":
-				System.out.println("insira o codigo");
-				break;
 			default:
 				break;
 		}
@@ -570,6 +570,27 @@ public class Program {
 	}
 	
 	public void aprovarCancelamento(int numeroPedido) {
+		Pedido pedido = new Pedido();
+		pedido = pedidoDao.findById(numeroPedido);
+		System.out.println("ID do Pedido: " + numeroPedido);
+		System.out.println("Hora do pedido" + pedido.getHorarioPedido());
 		System.out.println(pedido_itemDao.itensCancelamento(numeroPedido));
+		System.out.println("Confirmar cancelamento:\n1- Sim // 2- Nao");
+		int resp = sc.nextInt(); sc.nextLine();
+		if(resp == 1) {
+			Atendente atend = new Atendente();
+			System.out.println("Insira o login do gerente");
+			String loginGerente = sc.nextLine();
+			System.out.println("Insira a senha do gerente");
+			String senhaGerente = sc.nextLine();
+			atend = atendenteDao.findLogin(loginGerente, senhaGerente);
+			if(atend.getLogin().equals("admin") && atend.getSenha().equals("admin")) {
+				pedido.setStatusPedido("Cancelado");
+				pedidoDao.updateStatus(pedido);
+				item_pedidoDao.cancelarItens(numeroPedido);
+			}
+		}else if(resp == 2){
+			System.out.println("Gerente não foi encontrado");
+		}
 	}
 }

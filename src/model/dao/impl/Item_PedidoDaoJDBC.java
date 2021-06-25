@@ -219,7 +219,7 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 	public void removerCarrinho(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("UPDATE item_pedido SET status = 'cancelado' WHERE item_pedido_id = ?");
+			st = conn.prepareStatement("UPDATE item_pedido SET status = 'retirado' WHERE item_pedido_id = ?");
 			st.setInt(1, id);
 			st.executeUpdate();
 		}
@@ -230,5 +230,20 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 			DB.closeStatement(st);
 		}
 	}
-
+	
+	public void cancelarItens(Integer id) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("update item_pedido INNER JOIN pedido_item set item_pedido.status='cancelado' "
+					+ "where item_pedido.item_pedido_id = pedido_item.item_pedido_id AND pedido_item.pedido_id = ?");
+			st.setInt(1, id);
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+	}
 }
