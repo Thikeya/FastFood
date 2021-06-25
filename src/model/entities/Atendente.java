@@ -77,7 +77,8 @@ public class Atendente {
 		System.out.println("10- Atualizar um produto");
 		System.out.println("11- Atualizar uma promocao");
 		System.out.println("12- Atualzar produto <-> ingrediente");
-		System.out.println("13- Sair");
+		System.out.println("13- Cancelar pedido");
+		System.out.println("14- Sair");
 		int escolha = sc.nextInt(); sc.nextLine();
 		int op, op_id = 0;
 		switch(escolha) {
