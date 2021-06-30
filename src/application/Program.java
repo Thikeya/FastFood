@@ -221,10 +221,10 @@ public class Program {
 		pedido = pedidoDao.findById(numPedido);
 		if(!pedido.getStatusPedido().equals("Na fila") && op==1) {
 			pedido.setStatusPedido("Em andamento");
-			pedidoDao.update(pedido);
+			pedidoDao.updateStatus(pedido);
 		}else if(pedido.getStatusPedido().equals("Em andamento") && op==2) {
 			pedido.setStatusPedido("Finalizado");
-			pedidoDao.update(pedido);
+			pedidoDao.updateStatus(pedido);
 		}else {
 			System.out.println("Nao foi possivel alterar o status");
 		}
