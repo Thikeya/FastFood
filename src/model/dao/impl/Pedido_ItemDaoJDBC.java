@@ -60,12 +60,6 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 	}
 
 	@Override
-	public void update(Pedido_Item obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
@@ -79,11 +73,6 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 		finally {
 			DB.closeStatement(st);
 		}
-	}
-
-	@Override
-	public Pedido_Item findById(Integer id) {
-		return null;
 	}
 
 	@Override
@@ -220,4 +209,5 @@ public class Pedido_ItemDaoJDBC implements Pedido_ItemDao {
 			DB.closeResultSet(rs);
 		}
 	}
+
 }

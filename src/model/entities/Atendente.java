@@ -53,7 +53,7 @@ public class Atendente {
 			program.alterarStatusPedido(numPedido, opStatus);
 			return true;
 		}else if(escolha == 3) {
-			System.out.println("Informe o nº do pedido");
+			System.out.println("Informe o nº do pedido: ");
 			numPedido = sc.nextInt(); sc.nextLine();
 			program.aprovarCancelamento(numPedido);
 			return true;
@@ -217,6 +217,12 @@ public class Atendente {
 			program.atualizarProdutoIngrediente(op_id, op);
 			return true;
 		case 13:
+			System.out.println("Cancelar pedido");
+			System.out.println("Informe o nº do pedido: ");
+			int numPedido = sc.nextInt(); sc.nextLine();
+			program.aprovarCancelamento(numPedido);
+			return true;
+		case 14:
 			return false;
 		default:
 			return false;

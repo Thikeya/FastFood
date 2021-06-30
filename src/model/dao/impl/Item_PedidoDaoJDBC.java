@@ -74,12 +74,6 @@ public class Item_PedidoDaoJDBC implements Item_PedidoDao {
 	}
 
 	@Override
-	public void update(Item_Pedido obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {

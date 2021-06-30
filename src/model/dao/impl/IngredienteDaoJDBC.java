@@ -63,17 +63,6 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 	}
 
 	@Override
-	public void update(Ingrediente obj) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Ingrediente findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -245,5 +234,4 @@ public class IngredienteDaoJDBC implements IngredienteDao{
 			DB.closeStatement(st);
 		}
 	}
-
 }

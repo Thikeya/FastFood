@@ -6,8 +6,6 @@ import model.entities.Ingrediente;
 
 public interface IngredienteDao {
 	boolean insert(Ingrediente obj);
-	void update(Ingrediente obj);
-	void deleteById(Integer id);
 	Ingrediente findById(Integer id);
 	List<Ingrediente> findAll();
 	void atualizaQuantidade(Ingrediente ingrediente,Integer quantidade);

@@ -60,23 +60,6 @@ public class PagamentoDaoJDBC implements PagamentoDao {
 		return 0;
 	}
 
-	@Override
-	public void update(Pagamento obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Pagamento findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Pagamento> findAll() {
@@ -107,5 +90,4 @@ public class PagamentoDaoJDBC implements PagamentoDao {
 		
 		}
 	}
-
 }

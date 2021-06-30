@@ -11,7 +11,6 @@ public interface AtendenteDao {
 	void updateStatus(Atendente obj);
 	void updateLogin(Atendente obj);
 	void updateSenha(Atendente obj);
-	void deleteById(Integer id);
 	Atendente findById(Integer id);
 	List<Atendente> findAll();
 	Atendente findLogin(String login, String senha);

@@ -97,12 +97,6 @@ public class CategoriaDaoJDBC implements CategoriaDao{
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Categoria findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;

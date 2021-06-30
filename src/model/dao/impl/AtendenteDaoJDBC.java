@@ -149,11 +149,6 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		
-	}
-
-	@Override
 	public Atendente findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;

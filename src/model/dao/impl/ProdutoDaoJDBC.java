@@ -65,17 +65,6 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 	}
 
 	@Override
-	public void update(Produto obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public Produto findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -273,4 +262,5 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 			DB.closeStatement(st);
 		}
 	}
+
 }

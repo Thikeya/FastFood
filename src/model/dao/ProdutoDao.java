@@ -6,8 +6,6 @@ import model.entities.Produto;
 
 public interface ProdutoDao {
 	boolean insert(Produto obj);
-	void update(Produto obj);
-	void deleteById(Integer id);
 	void atualizaQuantidade(Produto produto,Integer quantidade);
 	Produto findById(Integer id);
 	List<Produto> findAll();

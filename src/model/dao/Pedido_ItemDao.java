@@ -8,9 +8,7 @@ import model.entities.Pedido_Item;
 
 public interface Pedido_ItemDao {
 	void insert(Pedido ped, Item_Pedido it_ped);
-	void update(Pedido_Item obj);
 	void deleteById(Integer id);
-	Pedido_Item findById(Integer id);
 	List<Pedido_Item> findAll();
 	List<Pedido_Item> carrinho(Integer id);
 	List<Pedido_Item> itensCancelamento(Integer id);

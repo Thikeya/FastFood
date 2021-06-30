@@ -62,11 +62,6 @@ public class PedidoDaoJDBC implements PedidoDao {
 		}
 		return 0;
 	}
-
-	@Override
-	public void update(Pedido obj) {
-		// TODO Auto-generated method stub
-	}
 	
 	public void updateAtendente(Pedido obj) {
 		PreparedStatement st = null;
@@ -104,12 +99,6 @@ public class PedidoDaoJDBC implements PedidoDao {
 		finally {
 			DB.closeStatement(st);
 		}
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -196,6 +185,4 @@ public class PedidoDaoJDBC implements PedidoDao {
 		}
 		return 0;
 	}
-	
-	
 }

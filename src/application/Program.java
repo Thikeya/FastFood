@@ -593,4 +593,17 @@ public class Program {
 			System.out.println("Gerente não foi encontrado");
 		}
 	}
+	
+	public void cancelarPedidoAdmin(int numeroPedido) {
+		Pedido pedido = new Pedido();
+		pedido = pedidoDao.findById(numeroPedido);
+		System.out.println("ID do Pedido: " + numeroPedido);
+		System.out.println("Hora do pedido: " + pedido.getHorarioPedido());
+		System.out.println(pedido_itemDao.itensCancelamento(numeroPedido));
+		System.out.println("Confirmar cancelamento:\n1- Sim // 2- Nao");
+		int resp = sc.nextInt(); sc.nextLine();
+		pedido.setStatusPedido("Cancelado");
+		pedidoDao.updateStatus(pedido);
+		item_pedidoDao.cancelarItens(numeroPedido);
+	}
 }
